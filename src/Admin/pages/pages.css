@@ -1,0 +1,180 @@
+/* RoleTable.css */
+
+.custom-role-table .ant-table {
+  border: 1px solid #9f9f9f;
+}
+
+.custom-role-table .ant-table-thead > tr > th {
+  background-color: #ececec;
+  border-right: 1px solid #9f9f9f;
+  color: #000000;
+  font-size: 0.8rem;
+}
+
+.custom-role-table .ant-table-tbody > tr > td {
+  border-top: 1px solid #9f9f9f;
+  border-right: 1px solid #9f9f9f;
+  color: #000000;
+}
+
+.ant-table-thead > tr > th {
+  background: #ececec !important;
+  font-size: 16px !important;
+}
+
+.custom-role-table .ant-table.ant-table-small .ant-table-tbody > tr > td,
+.custom-role-table .ant-table.ant-table-small .ant-table-thead > tr > th {
+  padding: 1px 8px !important; /* override Ant's small mode */
+  font-size: 1rem;
+  justify-content: center;
+}
+
+.custom-role-table .ant-table.ant-table-small .ant-table-thead > tr > th {
+  background: #ececec !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 0.3rem 0.5rem !important;
+}
+
+.custom-role-table
+  .ant-table.ant-table-small
+  .ant-table-thead
+  > tr
+  > th:last-child,
+.custom-role-table
+  .ant-table.ant-table-small
+  .ant-table-tbody
+  > tr
+  > td:last-child {
+  border-right: none !important;
+}
+
+/* Center the pagination */
+.custom-role-table .ant-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0 0 0 !important;
+}
+
+.ant-pagination.ant-pagination-mini .ant-pagination-item {
+  min-width: 28px;
+  margin: 0;
+}
+
+/* Round buttons for prev/next */
+.custom-role-table .ant-pagination-prev,
+.custom-role-table .ant-pagination-next {
+  border: none;
+  background: #f1f1f1;
+  color: #000000;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 36px;
+  height: 36px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.5rem !important;
+}
+
+.custom-role-table .ant-pagination-prev button,
+.custom-role-table .ant-pagination-next button {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+}
+
+/* Page numbers */
+.custom-role-table .ant-pagination-item {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  margin: 0 4px;
+  color: #adadad;
+}
+
+.custom-role-table .ant-pagination-item-active {
+  font-weight: bold;
+  background: transparent;
+  color: #000000;
+}
+
+:where(.css-dev-only-do-not-override-5uvb3z).ant-pagination.ant-pagination-mini
+  .ant-pagination-options {
+  margin-inline-start: 2px;
+  margin: 0 1rem;
+}
+
+.add-user-input_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  /* margin: 1rem 0; */
+}
+
+.add-user-input_container > label {
+  color: #262626;
+  margin-bottom: 0.3rem;
+}
+
+.add-user-input_container > input,
+.add-user-input_container > select {
+  background-color: #0000000a;
+  border: 1px solid #00000057;
+  height: 2.8rem;
+}
+
+/*********** Role Matrix ************/
+
+.rolematrix_sider_bar {
+  width: 20%;
+  border: 0.5px solid #9f9f9f;
+  border-radius: 0.8rem;
+  height: fit-content;
+}
+
+.rolematrix_sider_bar-heading {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  background-color: #ececec;
+  text-align: center;
+  padding: 0.4rem;
+  border-top-left-radius: 0.8rem;
+  border-top-right-radius: 0.8rem;
+}
+
+.rolematrix_sider_bar-radio-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  padding-top: 0.3rem;
+}
+
+.ant-table-row-module td {
+  background: #e4ebf8 !important;
+  color: #000000;
+  font-weight: 600;
+  border-bottom: 1.5px solid #d0d7e3 !important;
+}
+.ant-table-row-module td span {
+  font-weight: 600;
+  color: #22336b;
+  background-color: #e4ebf8;
+}
+
+/* ********** Role Matrix end ************* */
+
+/********* Notification / Alert ********* */
+
+.notification-heading-container {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+/********* End Notification / Alert ********* */

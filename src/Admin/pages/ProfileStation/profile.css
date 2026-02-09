@@ -1,0 +1,35 @@
+.list-group-item {
+  cursor: grab;
+}
+.list-group-item:active {
+  cursor: grabbing;
+}
+
+.custom-sensor-table .ant-table-thead > tr > th {
+  font-weight: 600;
+  font-size: 0.8rem !important;
+  border-right: 1px solid #9f9f9f !important;
+  background-color: #f9f9f9; /* optional for contrast */
+}
+
+.custom-sensor-table .ant-table-tbody > tr > td {
+  border-top: 1px solid #9f9f9f !important;
+  border-right: 1px solid #9f9f9f !important;
+}
+
+.custom-sensor-table .ant-table {
+  border: 1px solid #9f9f9f !important;
+}
+
+.custom-sensor-table
+  .ant-table.ant-table-small
+  .ant-table-thead
+  > tr
+  > th:last-child,
+.custom-sensor-table
+  .ant-table.ant-table-small
+  .ant-table-tbody
+  > tr
+  > td:last-child {
+  border-right: none !important;
+}

@@ -1,0 +1,51 @@
+.mapping-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 1rem;
+}
+
+.mapping-drop-input {
+  background-color: #f1f1f1 !important;
+  border: 1px solid #e6e6e6 !important;
+  border-radius: 1rem !important;
+  color: #000000;
+}
+
+.parameter-section {
+  margin-bottom: 16px;
+}
+
+.parameter-section h4 {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.parameter-actions {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.custom-role-table .ant-table-thead > tr > th {
+  background-color: #f0f2f5;
+  font-weight: 600;
+}
+
+.custom-role-table .ant-table-tbody > tr > td {
+  vertical-align: middle;
+}
+
+.custom-role-table .anticon {
+  font-size: 16px;
+}
+
+.custom-role-table .anticon:hover {
+  color: #1890ff;
+}
+
+.ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}

@@ -1,0 +1,146 @@
+.bar-item-img {
+  width: 1rem;
+  margin-right: 0.8rem;
+}
+
+.bar-item-cont {
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  color: #000000;
+}
+
+.bar-item-cont.active {
+  color: #256df0;
+}
+
+.bar-item-cont:hover {
+  cursor: pointer;
+}
+
+.bar-cont {
+  border-right: 1px solid #e7e7e7;
+  min-height: 61vh;
+  max-height: 61vh;
+  overflow: auto;
+}
+
+/* Profile */
+
+.profile-img-cont {
+  width: 3rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 50%;
+  height: 3rem;
+  background: #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.profile-action_btn {
+  border: 1px solid #898989;
+  margin: 0.5rem 0;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1.5rem;
+  background: transparent;
+  color: #898989;
+}
+.profile-action_btn:hover {
+  background-color: #256df0;
+  color: #ffffff;
+}
+
+.profile-input_label {
+  color: #747474;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.input-item:focus {
+  background-color: (37, 109, 240, 0.07);
+}
+
+.pass-eye-icon {
+  position: relative;
+  right: 2.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .pass-eye-icon {
+    position: relative;
+    right: 0;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}
+
+.large-dots {
+  /*font-size: 5rem;  Increase this value to make the dots larger */
+  letter-spacing: 2px; /* Optional: Adjust space between dots */
+  color: #000000;
+}
+
+.custom-radius {
+  border-radius: 2rem !important; /* Adjust the value as needed */
+  font-size: 0.8rem !important;
+  margin-top: 0.5rem;
+}
+
+.faqs-select {
+  word-wrap: normal;
+  border: none;
+  outline: none;
+}
+
+.font-size-btns {
+  display: flex;
+  gap: 1rem;
+}
+.font-size-btns > button {
+  border: 1px solid lightgray;
+  border-radius: 50% !important;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.decreaseBtn:hover {
+  background-color: #256df0;
+  color: #fff;
+}
+.resetBtn:hover {
+  background-color: #256df0;
+  color: #fff;
+}
+.increaseBtn:hover {
+  background-color: #256df0;
+  color: #fff;
+}
+
+.acc-container {
+  max-height: 50vh;
+  overflow-y: auto;
+  margin-top: 1rem;
+}
+
+.acc-icon-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #000000;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.6rem;
+  margin-right: 1rem;
+}

@@ -1,0 +1,50 @@
+.link-item_btn {
+  text-decoration: none;
+  color: #5272e5;
+  margin-top: 10px;
+}
+
+.station-weather-report {
+  /* border-bottom: 1px solid #dfdfdf; */
+  padding: 0.4rem;
+  cursor: pointer;
+}
+
+.stationName {
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: block;
+}
+span.profileName {
+  font-size: 0.7rem;
+  font-weight: 300;
+}
+
+.station-weather-report.activestation {
+  border-top: 1px solid rgba(223, 223, 223, 1);
+  background-color: rgba(37, 109, 240, 0.1);
+  width: auto;
+}
+
+.stationName.activestation {
+  color: #256df0;
+}
+
+.tool-status-container {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: black;
+}
+
+.map-container {
+  width: -webkit-fill-available;
+  position: relative;
+  overflow: hidden;
+}
+
+.leaflet-tile {
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+}

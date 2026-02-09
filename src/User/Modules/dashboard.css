@@ -1,0 +1,424 @@
+.fullCont {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.logo {
+  padding-bottom: 2.4rem;
+}
+img.nav-icons {
+  width: 1rem;
+  margin-right: 0.6rem;
+}
+img.nav-logo {
+  width: 50%;
+}
+.nav-items {
+  list-style-type: none;
+  padding-left: 0 !important;
+  height: 72vh;
+  overflow-y: auto;
+}
+
+.search-Nav-Items {
+  height: 55vh !important;
+}
+
+.customDropdown {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-weight: 600;
+  display: flex;
+}
+
+.customDropdown-continer {
+  display: flex;
+  width: 90%;
+  align-items: center;
+}
+
+.profile-count {
+  font-weight: 600;
+  /* background: red; */
+  height: 1.2rem;
+  width: 1.2rem;
+  border-radius: 50%;
+  color: white;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: flex-end;
+}
+
+.nav-item-link {
+  width: 2rem;
+  height: 2rem;
+  background: #ebe9e9 !important;
+  border-radius: 50%;
+  margin: 0 0.5rem;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem !important;
+  color: #000000 !important;
+  cursor: pointer;
+}
+
+.active-nav {
+  background: #256df0 !important;
+  color: #ffffff !important;
+}
+
+.customNavDropdown {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.customNavDropdown .dropdown-menu {
+  left: auto !important;
+  right: 0 !important;
+}
+
+nav.navbar-cont.navbar.navbar-expand-lg.navbar-light {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 0;
+  z-index: 999;
+}
+
+.footer-container {
+  position: fixed;
+  bottom: 0;
+  backdrop-filter: blur(8px);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  height: 2rem;
+}
+
+.navItemsCont {
+  justify-content: end;
+  align-items: center;
+  flex-direction: row !important;
+}
+
+.mainContInfo {
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: 0.6rem;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1.2px solid rgba(0, 0, 0, 0.18);
+  border-radius: 25px;
+  background-color: #f1f1f1;
+  padding: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+input.searchbar-input {
+  border: none;
+  background-color: transparent;
+}
+
+input.searchBar {
+  width: 80%;
+  border: none;
+  background-color: transparent;
+  height: 1rem;
+  color: #616161 !important;
+  font-size: 0.8rem;
+  outline: none !important;
+}
+span.verticalLine {
+  display: inline-block;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  height: 1.4rem;
+  margin: 0 0.3rem;
+}
+img.reportIcon {
+  width: 2rem;
+  height: 2rem;
+}
+span.report-val {
+  font-size: 2rem;
+  font-family: "Space Grotesk";
+  font-weight: 200;
+}
+
+.report-val > sup {
+  position: relative;
+  font-size: 0.5em;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+.full-report-values {
+  background-image: url("../../images/UserImages/innerBg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  backdrop-filter: blur(8px);
+  padding: 0.4rem;
+}
+.property {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.value {
+  font-size: 0.9rem;
+  font-family: "Space Grotesk";
+  font-weight: 400;
+}
+.weather-report {
+  background-image: url("../../images/UserImages/report-background.png");
+  background-position: center;
+  background-size: cover;
+  padding: 0.2rem;
+  margin: 0.5rem;
+  border: 1px solid #f8f2f2;
+}
+
+.section-heading {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.location-id {
+  font-size: 0.8rem;
+}
+.side-heading {
+  font-size: 0.8rem;
+  text-align: end;
+  display: block;
+  font-weight: 600;
+  cursor: pointer;
+}
+.live-weather-sec {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+}
+.location-cont {
+  position: relative;
+}
+.location-cont {
+  position: relative;
+  min-height: 13.6rem;
+  max-height: 13.6rem;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+}
+.location-details {
+  background-color: rgba(0, 0, 0, 0.46);
+  padding: 0.6rem;
+  margin: 0.4rem 1rem;
+  border-radius: 8px;
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+}
+.location-details > h6 {
+  color: rgba(255, 255, 255, 0.64) !important;
+  font-size: 0.8rem !important;
+}
+
+img.instrument-icon {
+  width: 1rem;
+}
+span.d-block.instrument-icon-val {
+  font-size: 0.6rem;
+  font-weight: 400;
+  margin-top: 0.2rem;
+}
+.dropdownItem {
+  padding-bottom: 7rem;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+.chart-container {
+  width: 1200px;
+  overflow: auto;
+}
+
+.locationImg {
+  height: 13.6rem;
+}
+.imageCont {
+  position: relative;
+  height: 13.6rem;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+}
+
+.graphBtns.mt-3 {
+  display: flex;
+  border: 1.6px solid #868686;
+  border-radius: 8px;
+  width: max-content;
+  overflow: auto;
+}
+.graphBtns > .btn.active-btn {
+  background-color: #256df0;
+  color: white !important;
+  border-color: #007bff !important;
+  outline: none;
+}
+.graphBtns > .active-btn:hover {
+  background-color: #256df0 !important;
+  color: white !important;
+  border-color: #007bff !important;
+}
+.graphBtns > .btn {
+  padding: 0.2rem 0.75rem;
+  color: #707070 !important;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.table-cont {
+  border: 1.6px solid lightgray;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-radius: 4px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.custom-table {
+  margin-bottom: 0 !important;
+}
+.tableInfo {
+  padding: 0 0.4rem;
+}
+.exportBtn {
+  background-color: transparent;
+  margin-bottom: 1rem;
+}
+.lineChartCont {
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .mainCont {
+    width: 100% !important;
+    margin-left: 0;
+    position: relative;
+  }
+  span.fabar.navbar-brand {
+    z-index: 10;
+  }
+}
+
+.notification {
+  position: relative;
+  cursor: pointer;
+}
+
+.notific-count {
+  position: absolute;
+  top: -1px;
+  right: -3px;
+  background: red;
+  width: 0.8rem;
+  height: 0.8rem;
+  font-size: 8px;
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.view-graph-btn {
+  color: #838383;
+  font-size: 0.8rem;
+  text-decoration: none;
+  text-align: right;
+  display: block;
+}
+
+.detail-view-btn {
+  color: #5272e5;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.detail-view-btn:hover {
+  cursor: pointer;
+}
+
+.view-graph-btn:hover {
+  color: #5272e5;
+  cursor: pointer;
+}
+
+.data-table-title {
+  text-transform: capitalize;
+}
+
+/* LINE GRAPH css */
+
+/* Wrapping div for the scrollable chart */
+.chart-wrapper {
+  overflow-x: auto;
+  transition: all 0.5s ease-in-out;
+}
+
+.chart-inner {
+  min-width: 100%;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Styling for Zoom buttons */
+.btn {
+  margin-right: 10px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Additional styling for the X-axis (labels) */
+.recharts-cartesian-axis-tick {
+  font-size: 10px;
+}
+
+/* Add a nice look to the Legend */
+.recharts-legend {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Adjusting Chart responsiveness */
+@media (max-width: 768px) {
+  .chart-wrapper {
+    padding-bottom: 40px;
+  }
+}

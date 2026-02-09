@@ -1,0 +1,139 @@
+.report_input-container {
+  border: 1px solid #e6e6e6;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+.report-title {
+  margin-bottom: 0.2rem;
+}
+
+.head-dropdown {
+  background: "transparent";
+  color: "white";
+  outline: "none";
+  border: "none";
+}
+
+.date_container_dropdown {
+  outline: none !important;
+  border: none !important;
+}
+
+.inputs-containr_header {
+  display: flex;
+  align-items: center;
+}
+
+.report-table-container {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.summary-table-container {
+  max-height: 52vh;
+  overflow: auto;
+  /* white-space: nowrap; */
+}
+
+/* Apply this on mobile screens (<= 765px width) */
+@media screen and (max-width: 764px) {
+  .report-table-container {
+    max-height: 30vh;
+  }
+  .summary-table-container {
+    max-height: 35vh;
+  }
+}
+
+/* Make the header sticky */
+.reports-header {
+  border-width: 0;
+  background: #000000;
+  color: #ffffff;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Make the first three columns sticky */
+.report-table td:nth-child(1),
+.report-table th:nth-child(1),
+.report-table td:nth-child(2),
+.report-table th:nth-child(2),
+.report-table td:nth-child(3),
+.report-table th:nth-child(3) {
+  position: sticky;
+  z-index: 5;
+  padding: 0.8rem;
+}
+
+/* First column */
+.report-table td:nth-child(1),
+.report-table th:nth-child(1) {
+  left: 0;
+  z-index: 1;
+  background-color: #fff;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+/* Second column */
+.report-table td:nth-child(2),
+.report-table th:nth-child(2) {
+  left: 1.8rem;
+  z-index: 8;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+}
+
+/* Third column */
+.report-table td:nth-child(3),
+.report-table th:nth-child(3) {
+  left: 8.9rem;
+  z-index: 8;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+}
+
+.report-table th:nth-child(3) {
+  background-color: #000;
+}
+
+.report-table th:nth-child(2) {
+  background-color: #000;
+}
+
+.report-table th:nth-child(1) {
+  background-color: #000;
+}
+
+.slect-drop-container {
+  border: 1px solid hsl(0, 0%, 80%);
+  padding: 4px;
+  border-radius: 0.9rem;
+}
+@media (max-width: 768px) {
+  .inputs-containr_header {
+    flex-wrap: wrap;
+  }
+}
+
+/* styles.css or your component CSS module */
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+
+  /* Webkit (Chrome, Safari) */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.parameter-card {
+  border: 0.1rem solid rgb(202, 211, 220);
+  border-radius: 0.7rem;
+  padding: 0.5rem;
+  text-align: center;
+}

@@ -1,0 +1,64 @@
+.custom-swal-container {
+  width: 100vw; /* Set responsive width (50% of viewport width) */
+  height: 100vh; /* Set responsive height (50% of viewport height) */
+  max-width: 100%; /* Optional: Cap the max width at 90% of screen width */
+  max-height: 100%; /* Optional: Cap the max height at 90% of screen height */
+  display: flex; /* Ensure content is centered */
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Horizontally center content */
+  overflow: hidden;
+  background-color: rgba(247, 248, 248, 0.3);
+}
+
+/********* Tost styles ************/
+
+.swal2-icon-custom {
+  background: none !important;
+  border: none !important;
+  /* box-shadow: none !important; */
+  border-radius: 0 !important;
+  padding: 0.3rem !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.colored-toast.swal2-popup {
+  background-color: #ffffff;
+  /* box-shadow: none !important; */
+  padding: 1rem !important;
+}
+
+.colored-toast .swal2-title {
+  color: #0ed00b;
+  font-weight: bold;
+  margin: 0 !important;
+}
+
+.colored-toast > div.swal2-html-container {
+  color: #000000 !important;
+  margin: 0 !important;
+}
+
+.colored-toast.swal2-icon-error {
+  background-color: #f27474 !important;
+}
+
+.colored-toast.swal2-icon-warning {
+  background-color: #f8bb86 !important;
+}
+
+.colored-toast.swal2-icon-info {
+  background-color: #3fc3ee !important;
+}
+
+.colored-toast.swal2-icon-question {
+  background-color: #87adbd !important;
+}
+
+.colored-toast .swal2-close {
+  color: white;
+}
+
+.colored-toast .swal2-html-container {
+  color: white;
+}

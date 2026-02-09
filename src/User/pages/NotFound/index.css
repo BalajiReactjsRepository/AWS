@@ -1,0 +1,42 @@
+.not-found-container {
+  height: 100vh;
+  background: #f1f5f7;
+  display: flex;
+  font-family: 'poppins', sans-serif;
+}
+
+.error-page .error-text {
+  font-size: 7rem;
+  line-height: 1;
+  color: #000000;
+  font-family: 'poppins', sans-serif;
+}
+
+.fw-bold {
+  font-weight: 800 !important;
+}
+
+h4 {
+  font-size: 2.25rem;
+  font-weight: 500;
+  margin-bottom: 0.3125rem;
+  font-family: 'poppins', sans-serif;
+  color: #000000;
+}
+
+.text-warning {
+  color: #fb9f44 !important;
+  font-size: 45px;
+}
+
+.error-page p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  margin-top: 0;
+  color: #807d7d;
+}
+
+.btn {
+  border-radius: 0.8rem;
+}

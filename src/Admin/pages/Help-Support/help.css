@@ -1,0 +1,59 @@
+/* Scoped only for FAQ component */
+.custom-accordion-faq {
+  background-color: #ffffff;
+  padding: 1rem;
+}
+
+.custom-accordion-faq .accordion-item {
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.custom-accordion-faq .accordion-header {
+  background-color: transparent !important;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+}
+
+.custom-accordion-faq .custom-accordion-btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2rem 0;
+  width: 100%;
+  font-size: 1rem;
+  color: #000;
+}
+
+.custom-accordion-faq .accordion-title {
+  flex: 1;
+  text-align: left;
+  font-weight: 600;
+  color: #000;
+}
+
+.custom-accordion-faq .acc-icon-btn {
+  width: 28px;
+  height: 28px;
+  background-color: #000;
+  color: #eee;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-accordion-faq .accordion-body {
+  padding: 0 0 1rem 0;
+  color: #444;
+  font-size: 1rem;
+  /* line-height: 1.6; */
+}
+
+/* Hide default Bootstrap arrow */
+.custom-accordion-faq .accordion-button::after {
+  display: none !important;
+}

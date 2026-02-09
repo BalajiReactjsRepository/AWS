@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+
+:root {
+  --primary-color: #f8f8f8;
+  --global-font-size: 16px;
+}
+body {
+  font-family: "Urbanist", "Space Grotesk" !important;
+  background-color: #f8f8f8 !important;
+  font-size: var(--global-font-size) !important;
+  width: 100%;
+}
+::-webkit-scrollbar {
+  width: 0.4rem;
+  position: absolute;
+  transition: background-color 0.2s linear, width 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s linear, width 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border: none;
+}
+
+/* #d2dcf0 dae2f3 #c1c9d8*/
+
+::-webkit-scrollbar-thumb {
+  background: #5d5c5c;
+}
+
+h6 {
+  font-weight: 600 !important;
+  font-size: 1.1rem !important;
+}
+
+.webpage {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sidebar: visible state */
+.displaySidebar {
+  background-color: #f8f8f8;
+  width: 18%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0.5rem;
+  border-right: 1.4px solid rgba(235, 235, 235, 1);
+  overflow: visible;
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(0);
+  z-index: 999;
+}
+
+/* Sidebar: hidden state */
+.displaySidebar.hideSidebar {
+  transform: translateX(-100%);
+}
+
+/* Main content */
+.mainCont {
+  background-color: #ffffff;
+  height: 100vh;
+  width: 82%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.5s ease-in-out, margin-left 0.5s ease-in-out;
+  padding: 0 0.8rem;
+  margin-left: 18%;
+}
+
+/* Main content expands when sidebar is hidden */
+.mainCont.fullWidth {
+  width: 100%;
+  margin-left: 0;
+}
+
+/* navbar */
+
+.collapse:not(.show) {
+  display: inline-block !important;
+}
+.fabar {
+  cursor: pointer;
+}
+
+/* scrollBar */
+
+::-webkit-scrollbar {
+  width: 0.4rem;
+  position: absolute;
+  transition: background-color 0.2s linear, width 0.2s ease-in-out;
+  -webkit-transition: background-color 0.2s linear, width 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border: none;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 6px;
+}
+
+/* #d2dcf0 dae2f3 #c1c9d8*/
+
+::-webkit-scrollbar-thumb {
+  background: #5d5c5c;
+}
+
+/* border-top-right-radius: 17px; */
+
+::-webkit-scrollbar-thumb:horizontal {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 0.3rem; /* Set the height for the horizontal scrollbar */
+  border: 1px solid #5d5c5c;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 1400px) {
+  .hideSidebar {
+    margin-left: -22rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .displaySidebar {
+    width: 20rem !important;
+    position: absolute;
+    z-index: 9999;
+    background-color: #fff;
+  }
+  .hideSidebar {
+    margin-left: -60rem;
+  }
+  .navItemsCont {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.2rem;
+    flex-wrap: nowrap;
+    margin-top: -2rem;
+  }
+  .close-icon.d-md-none {
+    text-align: end;
+    font-size: 30px;
+  }
+}
