@@ -36,7 +36,6 @@ export const apiCaller = async (args) => {
 
     // 🚀 Execute API call
     const res = await apiCall();
-    // console.log(res);
 
     if (!res?.data) {
       throw new Error("Unexpected server response.");

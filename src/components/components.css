@@ -129,6 +129,7 @@
   --bs-accordion-bg: none;
   height: 80vh;
   overflow-y: auto;
+  overflow-x: hidden;
   margin-top: 1rem;
 }
 
@@ -568,4 +569,17 @@ nav.navbar-cont.navbar.navbar-expand-lg.navbar-light {
   border-radius: 1rem !important;
   color: #000000;
   height: 40px;
+}
+
+.accordion-body.custom-accordian-body {
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+@media screen and (min-width: 1400px) {
+  .station-profile-accordian-cont {
+    border: 1px solid #9f9f9f;
+    max-height: 22rem;
+    overflow-y: scroll;
+  }
 }

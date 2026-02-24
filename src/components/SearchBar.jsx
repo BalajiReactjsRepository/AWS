@@ -5,12 +5,12 @@ import "./components.css";
 
 const SearchBar = ({ value, setFun }) => {
   return (
-    <div className="search-bar">
-      <SearchOutlined className="search-icon" />
+    <div className='search-bar w-25 me-4'>
+      <SearchOutlined className='search-icon' />
       <Input
-        id="component-search"
-        className="search-input unfiled-input"
-        placeholder="Search here"
+        id='component-search'
+        className='search-input unfiled-input'
+        placeholder='Search here'
         value={value}
         onChange={(e) => setFun(e.target.value)}
         maxLength={50}

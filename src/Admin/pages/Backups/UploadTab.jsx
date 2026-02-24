@@ -4,7 +4,7 @@ import { Table } from "antd";
 import Loader from "../../../components/Loader.jsx";
 import { tableSizes } from "../../../utils/tableAction";
 import api from "../../../api/axiosConfig.js";
-
+import { Alert } from "antd";
 import { apiCaller } from "../../../api/apihelper.js";
 
 import "./backup.css";
@@ -36,6 +36,7 @@ const UploadTab = () => {
 
   // API table data
   const [data, setData] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
 
   // ================================
   // Load backup logs on initial page load
@@ -97,11 +98,10 @@ const UploadTab = () => {
   // ================================
   const onChnageFiles = useCallback((e) => {
     const selectedFiles = Array.from(e.target.files);
-
-    if (selectedFiles.length > 5) {
-      alert("You can select a maximum of 5 files");
+    if (selectedFiles.length > 30) {
+      // alert("You can select a maximum of 30 files");
       e.target.value = "";
-      return;
+      return setShowAlert(true);
     }
 
     setFiles(selectedFiles);
@@ -165,137 +165,147 @@ const UploadTab = () => {
   // Component UI
   // ================================
   return (
-    <div className="container py-4 upload-tab">
+    <div className='container py-4 upload-tab'>
       {/* ================= Source & File Selection ================= */}
-      <div className="section-box mb-4 p-3 row">
-        <div className="col-6 col-md-2 py-3 border border-2 rounded-3">
+      <div className='section-box mb-4 p-3 row'>
+        {showAlert && (
+          <div className='col-12 my-2'>
+            <Alert
+              message='You can select a maximum of 30 files'
+              type='warning'
+              closable
+              onClose={() => setShowAlert(false)}
+            />
+          </div>
+        )}
+        <div className='col-6 col-md-2 py-3 border border-2 rounded-3'>
           <strong>Source</strong>
 
-          <div className="form-check mt-2">
+          <div className='form-check mt-2'>
             <input
-              className="form-check-input"
-              type="radio"
-              name="source"
+              className='form-check-input'
+              type='radio'
+              name='source'
               checked={sourceName === "AP"}
               onChange={() => setSourceName("AP")}
             />
-            <label className="form-check-label">Azista Portal</label>
+            <label className='form-check-label'>Azista Portal</label>
           </div>
 
-          <div className="form-check mt-2">
+          <div className='form-check mt-2'>
             <input
-              id="fileInput"
-              className="form-check-input"
-              type="radio"
-              name="source"
+              id='fileInput'
+              className='form-check-input'
+              type='radio'
+              name='source'
               checked={sourceName === "B"}
               onChange={() => setSourceName("B")}
             />
-            <label className="form-check-label">Backup</label>
+            <label className='form-check-label'>Backup</label>
           </div>
         </div>
 
-        <div className="d-flex justify-content-center align-items-start mt-3 col-6 col-md-2">
+        <div className='d-flex justify-content-center align-items-start mt-3 col-6 col-md-2'>
           <input
-            type="file"
-            id="fileUpload"
+            type='file'
+            id='fileUpload'
             multiple
-            accept=".xlsx,.xls,.csv"
+            accept='.xlsx,.xls,.csv'
             style={{ display: "none" }}
             onChange={onChnageFiles}
           />
 
           <button
-            className="btn btn-primary"
+            className='btn btn-primary'
             onClick={() => document.getElementById("fileUpload").click()}
           >
             ⬆ Select File
           </button>
         </div>
 
-        <div className="d-flex align-items-start mt-3 col-6 col-md-8">
+        <div className='d-flex align-items-start mt-3 col-6 col-md-8'>
           <textarea
-            className="form-control file-box"
-            rows="4"
+            className='form-control file-box'
+            rows='4'
             disabled
             value={files.map((f) => f.name).join("\n")}
-            placeholder="Selected files appear here..."
+            placeholder='Selected files appear here...'
           ></textarea>
         </div>
       </div>
 
       {/* ================= Destination Options ================= */}
-      <div className="section-box mb-4 px-2 py-3 row align-items-center">
-        <div className="row col-md-10 ms-2 border border-2 py-3 rounded-3">
+      <div className='section-box mb-4 px-2 py-3 row align-items-center'>
+        <div className='row col-md-10 ms-2 border border-2 py-3 rounded-3'>
           <strong>Destination</strong>
 
-          <div className="col-md-2">
+          <div className='col-md-2'>
             <input
-              className="form-check-input"
-              type="checkbox"
+              className='form-check-input'
+              type='checkbox'
               checked={IsOverwrite}
               onChange={(e) => setIsOverwrite(e.target.checked)}
             />
-            <label className="ms-2">Overwrite Data</label>
+            <label className='ms-2'>Overwrite Data</label>
           </div>
 
-          <div className="col-md-2">
+          <div className='col-md-2'>
             <input
-              className="form-check-input"
-              type="checkbox"
+              className='form-check-input'
+              type='checkbox'
               checked={azistaPortal}
               onChange={(e) => setAzistaPortal(e.target.checked)}
             />
-            <label className="ms-2">Azista Portal</label>
+            <label className='ms-2'>Azista Portal</label>
           </div>
 
-          <div className="col-md-3">
+          <div className='col-md-3'>
             <input
-              className="form-check-input"
-              type="checkbox"
+              className='form-check-input'
+              type='checkbox'
               checked={azistaDC}
               onChange={(e) => setAzistaDC(e.target.checked)}
             />
-            <label className="ms-2">Azista Data Center (FTP)</label>
+            <label className='ms-2'>Azista Data Center (FTP)</label>
           </div>
 
-          <div className="col-md-3">
+          <div className='col-md-3'>
             <input
-              className="form-check-input"
-              type="checkbox"
+              className='form-check-input'
+              type='checkbox'
               checked={stateDC}
               onChange={(e) => setStateDC(e.target.checked)}
             />
-            <label className="ms-2">State Data Center (FTP)</label>
+            <label className='ms-2'>State Data Center (FTP)</label>
           </div>
 
-          <div className="col-md-2">
+          <div className='col-md-2'>
             <input
-              className="form-check-input"
-              type="checkbox"
+              className='form-check-input'
+              type='checkbox'
               checked={wimsDC}
               onChange={(e) => setWimsDC(e.target.checked)}
             />
-            <label className="ms-2">WIMS (FTP)</label>
+            <label className='ms-2'>WIMS (FTP)</label>
           </div>
         </div>
 
-        <div className="col-md-2 mt-3">
-          <button className="btn btn-dark float-end" onClick={uploadBackup}>
+        <div className='col-md-2 mt-3'>
+          <button className='btn btn-dark float-end' onClick={uploadBackup}>
             ⬆ Upload
           </button>
         </div>
       </div>
 
       {/* ================= Backup Logs Table ================= */}
-      <div className="section-box p-3 row">
-        <div className="info-text mb-2">
+      <div className='section-box p-3 row'>
+        <div className='info-text mb-2'>
           ℹ Data will be shown for the last 24 hours.
         </div>
 
         <Table
-          className="custom-role-table"
-          size="small"
+          className='custom-role-table'
+          size='small'
           loading={{ spinning: loading, indicator: <Loader /> }}
           rowKey={(record) => record?.requestId ?? Math.random()}
           columns={columns}

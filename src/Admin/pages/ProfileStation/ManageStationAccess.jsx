@@ -9,6 +9,7 @@ import { useStore } from "../../../Context/masterapis/MasterApisContext";
 import SearchBar from "../../../components/SearchBar";
 import AddBtn from "../../../components/AddBtn";
 import DownloadBtn from "../../../components/DownloadBtn";
+import SensorsTable from "./SensorsTable";
 
 const ManageStationAccess = () => {
   const [data, setData] = useState([]);
@@ -17,6 +18,8 @@ const ManageStationAccess = () => {
   const [filteredInfo, setFilteredInfo] = useState({});
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   const [loading, setLoading] = useState(false);
+  const [stationId, setStationId] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const { store } = useStore();
   const profiles = store.profiles;
@@ -25,13 +28,29 @@ const ManageStationAccess = () => {
   const [users, setUsers] = useState([]);
   const [userId, setUserId] = useState("");
 
+  const hiddenColumns = ["_id", "userId", "stationIds", "profileId"];
+
+  // useEffect(() => {
+  //   apiCaller({
+  //     setLoading,
+  //     apiCall: () => api.get("/Admin/Client/GetAllClients"),
+  //     onSuccess: (result) => setData(result ?? []),
+  //   });
+  // }, []);
+
   useEffect(() => {
+    if (!profileId) return;
+
+    const formData = new FormData();
+    formData.append("profileId", profileId);
+    formData.append("userId", userId);
     apiCaller({
       setLoading,
-      apiCall: () => api.get("/Admin/Client/GetAllClients"),
+      apiCall: () =>
+        api.post(`/Admin/ShowStationAccess/GetAllStationsAccess`, formData),
       onSuccess: (result) => setData(result ?? []),
     });
-  }, []);
+  }, [profileId, userId]);
 
   useEffect(() => {
     apiCaller({
@@ -46,19 +65,29 @@ const ManageStationAccess = () => {
   };
 
   const handleDeleteProfile = async (reason, record) => {
-    const formData = new FormData();
+    // const formData = new FormData();
 
-    formData.append("_id", record._id);
-    formData.append("IsActive", false);
-    formData.append("Reason", reason);
+    // formData.append("_id", record._id);
+    // formData.append("IsActive", false);
+    // formData.append("Reason", reason);
 
-    const url = `/Admin/Profile/ActiveDeactiveProfile`;
+    const body = {
+      IsActive: false,
+      Reason: "Checking the working of multiple de-active",
+      stationAccessList: [
+        {
+          _id: record._id,
+        },
+      ],
+    };
+
+    const url = `/Admin/ShowStationAccess/ActiveDeactiveStationAccess`;
 
     apiCaller({
-      apiCall: () => api.post(url, formData),
+      apiCall: () => api.post(url, body),
       onSuccess: () => {
         const updatdData = data.map((d) =>
-          d._id === record._id ? { ...d, status: "Inactive" } : d
+          d._id === record._id ? { ...d, status: "Inactive" } : d,
         );
         setData(updatdData);
       },
@@ -71,14 +100,8 @@ const ManageStationAccess = () => {
     onChange: onSelectChange,
   };
 
-  const selectFields = [
-    "clientName",
-    "clientCode",
-    "status",
-    "performedBy",
-    "performedOn",
-  ];
-  const searchColumns = ["clientName", "emailId", "performedBy"];
+  const selectFields = ["stationId", "userName", "profileId"];
+  const searchColumns = ["stationId", "userName", "profileId"];
 
   const filteredData = data.filter((item) => {
     // Dynamic search
@@ -102,8 +125,28 @@ const ManageStationAccess = () => {
 
   const paginatedData = filteredData.slice(
     (pagination.current - 1) * pagination.pageSize,
-    pagination.current * pagination.pageSize
+    pagination.current * pagination.pageSize,
   );
+
+  const handleProfileClick = (id) => {
+    setStationId(id);
+    setIsModalVisible(true);
+  };
+
+  const customRenderMap = {
+    profileName: (text, record) => (
+      <span
+        style={{
+          color: "#0084FF",
+          textDecoration: "underline",
+          cursor: "pointer",
+        }}
+        onClick={() => handleProfileClick(record._id)}
+      >
+        {text}
+      </span>
+    ),
+  };
 
   let columns = [];
 
@@ -114,8 +157,18 @@ const ManageStationAccess = () => {
       selectFields,
       numberFields,
       dateFields,
+      excludeFields: hiddenColumns,
     };
-    columns = buildColumns("station", data, filterFields, handleDeleteProfile);
+    columns = buildColumns(
+      "Station Access",
+      data,
+      filterFields,
+      handleDeleteProfile,
+      customRenderMap,
+      true,
+      false,
+      false,
+    );
   }
 
   const handleDownload = () => {
@@ -124,38 +177,44 @@ const ManageStationAccess = () => {
 
   return (
     <>
-      <div className="component-top-sec">
+      <div className='component-top-sec d-flex align-items-center'>
         <SearchBar value={searchText} setFun={setSearchText} />
-        <div className="d-flex">
+        <div className='d-flex'>
           <select
-            className="form-select mapping-drop-input me-3"
+            className='form-select mapping-drop-input me-3'
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
           >
-            <option value="">Select User</option>
-            {users.map((u) => (
+            <option value=''>Select User</option>
+            {users?.map((u) => (
               <option key={u._id} value={u._id}>
                 {u.name}
               </option>
             ))}
           </select>
-          <select
-            className="form-select mapping-drop-input me-3"
-            value={profileId}
-            onChange={(e) => setProfileId(e.target.value)}
-          >
-            <option value="">Select Profile</option>
-            {profiles.map((p) => (
-              <option key={p._id} value={p._id}>
-                {p.profileName}
-              </option>
-            ))}
-          </select>
-          <AddBtn label={"Add Station Access"} />
+          {userId && (
+            <select
+              className='form-select mapping-drop-input me-3'
+              value={profileId}
+              onChange={(e) => setProfileId(e.target.value)}
+            >
+              <option value=''>Select Profile</option>
+              {profiles?.map((p) => (
+                <option key={p._id} value={p._id}>
+                  {p.profileName}
+                </option>
+              ))}
+            </select>
+          )}
+          <AddBtn label={"Add Station Access"} to='add-station-access' />
           <DownloadBtn handleDownload={handleDownload} data={paginatedData} />
         </div>
       </div>
-
+      <SensorsTable
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        stationId={stationId}
+      />
       <DataTable
         loading={loading}
         rowSelection={rowSelection}

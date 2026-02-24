@@ -18,6 +18,8 @@ const DataTable = (props) => {
     offDateLabel,
   } = props;
 
+  console.log(data, "kkkk");
+
   const downloadCSV = (array, fileName) => {
     if (!array || array.length === 0) return;
     const csvContent = [
@@ -35,7 +37,7 @@ const DataTable = (props) => {
               return item?.sensorDataList?.[key] || "N/A"; // Handle missing values
             }
           })
-          .join(",")
+          .join(","),
       ),
     ].join("\n");
 
@@ -52,7 +54,7 @@ const DataTable = (props) => {
 
   const dateFormatter = (date) => {
     return moment(date, "ddd MMM DD YYYY HH:mm:ss [GMT]Z").format(
-      "DD-MMM-YYYY"
+      "DD-MMM-YYYY",
     );
   };
 
@@ -69,8 +71,8 @@ const DataTable = (props) => {
   };
 
   return (
-    <div className="table-cont">
-      <div className="tableInfo d-flex justify-content-between">
+    <div className='table-cont'>
+      <div className='tableInfo d-flex justify-content-between'>
         <p>
           <strong>{title} :</strong>
           {!offDateLabel && (
@@ -80,12 +82,12 @@ const DataTable = (props) => {
                   {dateFormatter(fromDate)} - {dateFormatter(toDate)}{" "}
                 </span>
               ) : (
-                <span className="data-table-title">{selectDateType}</span>
+                <span className='data-table-title'>{selectDateType}</span>
               )}
               <img
-                className="ms-2"
+                className='ms-2'
                 src={calendar}
-                alt="calendar"
+                alt='calendar'
                 style={{ width: "16px" }}
               />
             </>
@@ -93,7 +95,7 @@ const DataTable = (props) => {
         </p>
 
         <button
-          className="exportBtn"
+          className='exportBtn'
           style={{ border: "none", backgroundColor: "none" }}
           onClick={() => downloadCSV(data, fileName)}
         >
@@ -103,12 +105,12 @@ const DataTable = (props) => {
       <div style={{ overflow: "scroll" }}>
         {data?.length > 0 ? (
           <Table
-            className="custom-table"
+            className='custom-table'
             bordered
             hover
             style={{ whiteSpace: "nowrap" }}
           >
-            <thead className="table-dark">
+            <thead className='table-dark'>
               <tr>
                 {headers.map((each, i) => (
                   <th key={i}>{each}</th>
@@ -132,7 +134,7 @@ const DataTable = (props) => {
             </tbody>
           </Table>
         ) : (
-          <div className="text-center fw-medium">No Data Found</div>
+          <div className='text-center fw-medium'>No Data Found</div>
         )}
       </div>
     </div>

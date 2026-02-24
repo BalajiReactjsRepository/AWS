@@ -50,13 +50,18 @@ const StationDetails = () => {
 
   const today = moment().format("DD-MMM-YYYY");
   const yesterday = moment().subtract(1, "day").format("DD-MMM-YYYY");
+  const last7Days = moment().subtract(7, "day").format("DD-MMM-YYYY");
+  const last30Days = moment().subtract(30, "day").format("DD-MMM-YYYY");
+  const isRangeType = ["custom", "last 7 days", "last 30 days"].includes(
+    selectDateType,
+  );
 
   const fromDate = SelectDate[0]?.$d;
   const toDate = SelectDate[1]?.$d;
 
   const dateFormatter = (date) => {
     return moment(date, "ddd MMM DD YYYY HH:mm:ss [GMT]Z").format(
-      "DD-MMM-YYYY"
+      "DD-MMM-YYYY",
     );
   };
 
@@ -72,14 +77,23 @@ const StationDetails = () => {
       if (selectDateType === "custom") {
         formData.append("fromDate", dateFormatter(fromDate));
         formData.append("toDate", dateFormatter(toDate));
+        console.log(dateFormatter(fromDate), dateFormatter(toDate), "1st");
+      } else if (selectDateType === "last 7 days") {
+        formData.append("fromDate", last7Days);
+        formData.append("toDate", today);
+        console.log(last7Days, today, "q11");
+      } else if (selectDateType === "last 30 days") {
+        formData.append("fromDate", last30Days);
+        formData.append("toDate", today);
+        console.log(last30Days, today, "triggering");
       } else {
         formData.append(
           "fromDate",
-          selectDateType === "today" ? today : yesterday
+          selectDateType === "today" ? today : yesterday,
         );
         formData.append(
           "toDate",
-          selectDateType === "today" ? today : yesterday
+          selectDateType === "today" ? today : yesterday,
         );
       }
 
@@ -97,6 +111,8 @@ const StationDetails = () => {
     selectDateType,
     today,
     yesterday,
+    last7Days,
+    last30Days,
   ]);
 
   const stationDataDetails = useCallback(
@@ -113,11 +129,11 @@ const StationDetails = () => {
       } else {
         formData.append(
           "fromDate",
-          selectDateType === "today" ? today : yesterday
+          selectDateType === "today" ? today : yesterday,
         );
         formData.append(
           "toDate",
-          selectDateType === "today" ? today : yesterday
+          selectDateType === "today" ? today : yesterday,
         );
       }
 
@@ -126,38 +142,54 @@ const StationDetails = () => {
         onSuccess: (result) => setDetailedData(result),
       });
     },
-    [stationId, profileId, selectDateType, today, yesterday]
+    [stationId, profileId, selectDateType, today, yesterday],
   );
 
   useEffect(() => {
-    if (
-      (selectDateType === "custom" && dataDetialDate) ||
-      (selectDateType !== "custom" && !dataDetialDate)
-    ) {
+    if ((isRangeType && dataDetialDate) || (!isRangeType && !dataDetialDate)) {
       stationDataDetails(dataDetialDate);
     }
-  }, [stationDataDetails, dataDetialDate, selectDateType]);
+  }, [stationDataDetails, dataDetialDate, selectDateType, isRangeType]);
 
   useEffect(() => {
     const stationDataOverview = async () => {
       const url = `/User/UserViewStationDashboard/GetStationDataOverview`;
 
       const formData = new FormData();
-
       formData.append("stationCode", stationId);
       formData.append("profileId", profileId);
-      formData.append("fromDate", dateFormatter(fromDate));
-      formData.append("toDate", dateFormatter(toDate));
+      if (selectDateType === "last 7 days") {
+        formData.append("fromDate", last7Days);
+        formData.append("toDate", today);
+      }
+      if (selectDateType === "last 30 days") {
+        formData.append("fromDate", last30Days);
+        formData.append("toDate", today);
+      }
+      if (selectDateType === "custom") {
+        formData.append("fromDate", dateFormatter(fromDate));
+        formData.append("toDate", dateFormatter(toDate));
+      }
 
       apiCaller({
         apiCall: () => api.post(url, formData),
         onSuccess: (result) => setOverviewData(result),
       });
     };
-    if (selectDateType === "custom") {
+    if (isRangeType) {
       stationDataOverview();
     }
-  }, [stationId, profileId, fromDate, toDate, selectDateType]);
+  }, [
+    stationId,
+    profileId,
+    fromDate,
+    toDate,
+    selectDateType,
+    last30Days,
+    last7Days,
+    today,
+    isRangeType,
+  ]);
 
   const sensorKeys = (data) => {
     return Array.isArray(data) && data[0]?.sensorDataList
@@ -196,19 +228,22 @@ const StationDetails = () => {
   const fomatedOverivewData = formatDataByDate(overviewData);
   if (Object.keys(stationData).length < 1)
     return (
-      <div className="h-100 d-flex justifiy-content-center text-center align-items-center ">
+      <div className='h-100 d-flex justifiy-content-center text-center align-items-center '>
         <p>Please select Station</p>
       </div>
     );
+
+  console.log(dataDetialDate, "dataDetialDate");
+
   return (
-    <div className="mainContInfo mb-5">
+    <div className='mainContInfo mb-5'>
       <StationView stationData={stationData} district={district} />
 
-      <div className="d-flex justify-content-between align-items-center mt-4">
-        <div className="left-sec">
+      <div className='d-flex justify-content-between align-items-center mt-4'>
+        <div className='left-sec'>
           <img
             src={reqView === "graphicalView" ? ActiveGraphsIcon : GraphsIcon}
-            alt="GraphsIcon"
+            alt='GraphsIcon'
             style={{ width: "2.5rem", height: "2.5rem", cursor: "pointer" }}
             onClick={() => navigateTo("graphicalView")}
           />
@@ -218,20 +253,20 @@ const StationDetails = () => {
                 ? ActiveTabularViewIcon
                 : TabularViewIcon
             }
-            alt="GraphsIcon"
+            alt='GraphsIcon'
             style={{ width: "2.5rem", height: "2.5rem", cursor: "pointer" }}
             onClick={() => navigateTo("tabularView")}
           />
         </div>
-        <div className="right-sec">
-          <div className="d-flex align-items-center">
+        <div className='right-sec'>
+          <div className='d-flex align-items-center'>
             <strong>View by :</strong>
             <SelectDateRange
               handleCustomRangeDate={handleCustomRangeDate}
               setSelectedDateType={setSelectedDateType}
               selectDateType={selectDateType}
               SelectDate={SelectDate}
-              value="tabularData"
+              value='tabularData'
               setDataDetialDate={setDataDetialDate}
             />
           </div>
@@ -249,7 +284,7 @@ const StationDetails = () => {
             }-${dateFormatter(fromDate)}-${dateFormatter(toDate)}-summary-data`}
             title={"Summary"}
           />
-          {selectDateType === "custom" ? (
+          {isRangeType ? (
             <CustomOverviewTable
               data={fomatedOverivewData}
               headers={overViewHeaders}
@@ -259,7 +294,7 @@ const StationDetails = () => {
               fileName={`${stationData.stationId}-${
                 stationData.stationName
               }-${dateFormatter(fromDate)}-${dateFormatter(
-                toDate
+                toDate,
               )}-overView-data`}
               title={"OverView"}
             />
@@ -272,13 +307,13 @@ const StationDetails = () => {
               fileName={`${stationData.stationId}-${
                 stationData.stationName
               }-${dateFormatter(fromDate)}-${dateFormatter(
-                toDate
+                toDate,
               )}-detail-data`}
               title={"DetailData"}
             />
           )}
 
-          {dataDetialDate !== "" && selectDateType === "custom" ? (
+          {dataDetialDate !== "" && isRangeType ? (
             <DataTable
               data={detailedData}
               headers={datalistHeaders}
@@ -287,7 +322,7 @@ const StationDetails = () => {
               fileName={`${stationData.stationId}-${
                 stationData.stationName
               }-${dateFormatter(fromDate)}-${dateFormatter(
-                toDate
+                toDate,
               )}-detail-data`}
               title={`Showing Detailed Data for ${dataDetialDate}`}
               offDateLabel={true}

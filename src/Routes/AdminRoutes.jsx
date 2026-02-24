@@ -6,6 +6,7 @@ import AdminLayout from "../Layouts/AdminLayout";
 import RoleMaster from "../Admin/pages/Master/RoleMaster";
 import ManageMenu from "../Admin/pages/Master/ManageMenu";
 import RoleMatrix from "../Admin/pages/Master/RoleMatrix";
+import ManageDerivedParameterMapping from "../Admin/pages/Master/ManageDerivedParameterMapping";
 import ManageProfile from "../Admin/pages/ProfileStation/ManageProfile";
 import ManageStation from "../Admin/pages/ProfileStation/ManageStation";
 //import ManageNotifications from "../Admin/pages/NotificationAlert/ManageNotifications";
@@ -24,8 +25,11 @@ import ClientConfigActions from "../Admin/pages/Master/ClientConfigActions";
 import ManageSensorAction from "../Admin/pages/Sensorparameterconfig/ManageSensorAction";
 import ParameterMappingAction from "../Admin/pages/Sensorparameterconfig/ParameterMappingAction";
 import ManageMenuForm from "../Admin/pages/Master/ManageMenuForm";
+import DerivedParameterMapping from "../Admin/pages/Master/DerivedParameterMapping";
+import HydraulicDetails from "../Admin/pages/Master/HydraulicDetails";
 import ProfileForm from "../Admin/pages/ProfileStation/ProfileForm";
 import StationForm from "../Admin/pages/ProfileStation/StationForm";
+import AddStationAccess from "../Admin/pages/ProfileStation/AddStationAccess";
 import StationImportForm from "../Admin/pages/ProfileStation/StationImportForm";
 import StationImportHistrory from "../Admin/pages/ProfileStation/StationImportHistrory";
 import UploadBackup from "../Admin/pages/Backups/UploadBackup";
@@ -36,99 +40,106 @@ import Reports from "../Admin/pages/Reports/GeneralReports/Reports";
 import MainContextProvider from "../Context/AdminContextProvider";
 import UnitController from "../Admin/pages/Master/UnitController";
 import UnitControllerAction from "../Admin/pages/Master/UnitControllerAction";
-import DataQuality from "../Admin/pages/DataQuality";
+import DataQuality from "../Admin/pages/Master/DataQuality";
 import ManageStationAccess from "../Admin/pages/ProfileStation/ManageStationAccess";
 import ParameterSensor from "../Admin/pages/Master/ParameterSensor";
 import ParameterSensorAction from "../Admin/pages/Master/ParameterSensorAction";
+import AddHydraulicParameter from "../Admin/pages/Master/AddHydraulicParameter";
 
 export const AdminRoutes = (
   <Route
-    path="/admin"
+    path='/admin'
     element={
       <MainContextProvider>
         <AdminLayout />
       </MainContextProvider>
     }
   >
-    <Route index element={<Navigate to="master/manage-menu" />} />
-
+    <Route index element={<Navigate to='master/manage-menu' />} />
     {/* master Routes */}
-    <Route path="master">
-      <Route path="manage-menu">
+    <Route path='master'>
+      <Route path='manage-menu'>
         <Route index element={<ManageMenu />} />
-        <Route path=":action" element={<ManageMenuForm />} />
+        <Route path=':action' element={<ManageMenuForm />} />
       </Route>
-      <Route path="role-master">
+      <Route path='role-master'>
         <Route index element={<RoleMaster />} />
-        <Route path=":action" element={<RoleMasterAction />} />
+        <Route path=':action' element={<RoleMasterAction />} />
       </Route>
-      <Route path="manage-user">
+      <Route path='manage-user'>
         <Route index element={<ManageUser />} />
-        <Route path=":action" element={<ManageUserActions />} />
+        <Route path=':action' element={<ManageUserActions />} />
       </Route>
-      <Route path="role-matrix" element={<RoleMatrix />} />
-      <Route path="client-config">
+      <Route path='role-matrix' element={<RoleMatrix />} />
+      <Route path='client-config'>
         <Route index element={<ClientConfig />} />
-        <Route path=":action" element={<ClientConfigActions />} />
+        <Route path=':action' element={<ClientConfigActions />} />
       </Route>
-      <Route path="manage-unit">
+      <Route path='manage-unit'>
         <Route index element={<UnitController />} />
-        <Route path=":action" element={<UnitControllerAction />} />
+        <Route path=':action' element={<UnitControllerAction />} />
       </Route>
-      <Route path="parameter-in-sensor">
+      <Route path='parameter-in-sensor'>
         <Route index element={<ParameterSensor />} />
-        <Route path=":action" element={<ParameterSensorAction />} />
+        <Route path=':action' element={<ParameterSensorAction />} />
       </Route>
+      <Route path='derived-parameter-mapping'>
+        <Route index element={<DerivedParameterMapping />} />
+        <Route path=':action' element={<ManageDerivedParameterMapping />} />
+      </Route>
+      <Route path='hydraulic-details'>
+        <Route index element={<HydraulicDetails />} />
+        <Route path=':action' element={<AddHydraulicParameter />} />
+      </Route>
+      <Route path='manual-data-check' element={<DataQuality />} />
     </Route>
-
     {/* sensorparameter-configuration Routes */}
-    <Route path="sensor-parameter-configuration">
-      <Route path="manage-sensor">
+    <Route path='sensor-parameter-configuration'>
+      <Route path='manage-sensor'>
         <Route index element={<ManageSensor />} />
-        <Route path=":action" element={<ManageSensorAction />} />
+        <Route path=':action' element={<ManageSensorAction />} />
       </Route>
 
-      <Route path="sensor-parameter-mapping">
+      <Route path='sensor-parameter-mapping'>
         <Route index element={<SensorParameterMapping />} />
-        <Route path=":action" element={<ParameterMappingAction />} />
+        <Route path=':action' element={<ParameterMappingAction />} />
       </Route>
     </Route>
-
     {/* profile & station Routes */}
-    <Route path="profile-station">
-      <Route path="manage-profile">
+    <Route path='profile-station'>
+      <Route path='manage-profile'>
         <Route index element={<ManageProfile />} />
-        <Route path=":action" element={<ProfileForm />} />
+        <Route path=':action' element={<ProfileForm />} />
       </Route>
-
-      <Route path="manage-station">
+      <Route path='manage-station'>
         <Route index element={<ManageStation />} />
-        <Route path=":action" element={<StationForm />} />
-        <Route path="import-station" element={<StationImportForm />} />
+        <Route path=':action' element={<StationForm />} />
+        <Route path='import-station' element={<StationImportForm />} />
         <Route
-          path="import-station/history"
+          path='import-station/history'
           element={<StationImportHistrory />}
         />
       </Route>
-      <Route path="manage-station-access" element={<ManageStationAccess />} />
+      <Route path='manage-station-access'>
+        <Route index element={<ManageStationAccess />} />
+        <Route path=':action' element={<AddStationAccess />} />
+      </Route>
     </Route>
-
     {/* Report Routes */}
-    <Route path="report">
-      <Route path="general-report" element={<Reports />} />
-      <Route path="data-completness-report" element={<DataCompleteReport />} />
-      <Route path="data-quality-report" element={<DataQualityReport />} />
-      <Route path="data-missing-report" element={<MissingDataReport />} />
+    <Route path='report'>
+      <Route path='general-report' element={<Reports />} />
+      <Route path='data-completness-report' element={<DataCompleteReport />} />
+      <Route path='data-quality-report' element={<DataQualityReport />} />
+      <Route path='data-missing-report' element={<MissingDataReport />} />
     </Route>
-
     {/* Backup Routes */}
-    <Route path="mange-backup">
-      <Route path="upload-backup" element={<UploadBackup />} />
+    <Route path='mange-backup'>
+      <Route path='upload-backup' element={<UploadBackup />} />
     </Route>
-
-    <Route path="data-quality">
-      <Route path="data-quality" element={<DataQuality />} />
-    </Route>
+    {/* check-manual-data-completeness-and-quality 
+    <Route path='data-quality'>
+      <Route path='data-quality' element={<DataQuality />} />
+    </Route>*/}
   </Route>
 );
 

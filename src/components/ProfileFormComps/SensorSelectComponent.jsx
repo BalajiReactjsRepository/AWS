@@ -34,44 +34,44 @@ const SensorSelectComponent = (props) => {
   };
 
   return (
-    <div className="station-profile-accordian-cont">
-      <h6 className="station-profile-accordian-heading">Select Sensors</h6>
+    <div className='station-profile-accordian-cont'>
+      <h6 className='station-profile-accordian-heading'>Select Sensors</h6>
       <div
-        className="accordion station-profile-accordian"
+        className='accordion station-profile-accordian'
         defaultactivekey={activeGroup}
       >
         {allSensors.map((group) => (
           <div
-            className="accordion-item station-profile-accordian-item"
+            className='accordion-item station-profile-accordian-item'
             eventkey={group.make}
             key={group.make}
           >
-            <h2 className="accordion-header station-profile-accordian-item-header">
+            <h2 className='accordion-header station-profile-accordian-item-header'>
               <button
                 className={`accordion-button station-profile-accordian-button ${
                   activeGroup === group.make ? "" : "collapsed"
                 }`}
-                type="button"
+                type='button'
                 aria-expanded={activeGroup === group.make}
                 onClick={() => onClickOpenAccordian(group.make)}
               >
-                <span className="accordion-title">{group.make}</span>
+                <span className='accordion-title'>{group.make}</span>
               </button>
             </h2>
             {activeGroup === group.make ? (
-              <div className="accordion-body">
+              <div className='accordion-body custom-accordian-body'>
                 {group.sensors.map((sensor) => (
-                  <div className="form-check mb-2" key={sensor._id}>
+                  <div className='form-check mb-2' key={sensor._id}>
                     <input
-                      type="checkbox"
-                      className="form-check-input"
+                      type='checkbox'
+                      className='form-check-input'
                       id={sensor.id}
                       checked={selectedSensors.some(
-                        (s) => s.sensorId === sensor._id
+                        (s) => s.sensorId === sensor._id,
                       )}
                       onChange={() => handleAddSensor(sensor)}
                     />
-                    <label className="form-check-label" htmlFor={sensor._id}>
+                    <label className='form-check-label' htmlFor={sensor._id}>
                       <div>
                         <strong>Sensor Name</strong>: {sensor.sensorName}
                       </div>

@@ -178,3 +178,45 @@
 }
 
 /********* End Notification / Alert ********* */
+
+/* Data quality */
+
+.info-card {
+  background-color: #d1dff9;
+  border: 2px solid #000;
+  border-radius: 0.8rem;
+}
+.tabs-cont > li {
+  padding: 2px;
+}
+.tabs-cont > li > .nav-link {
+  background-color: #1890fe !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+.tabs-cont > li > .nav-link.active {
+  background-color: #1890fe !important;
+  color: #fff !important;
+  border: 1.4px solid #000;
+}
+/* MULTI SELECT SCROLL FIX */
+
+.ant-select-multiple .ant-select-selection-overflow::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ant-select-multiple .ant-select-selection-overflow-item {
+  flex: 0 0 auto;
+}
+:where(.css-dev-only-do-not-override-5uvb3z).ant-select-multiple
+  .ant-select-selection-wrap {
+  align-self: anchor-center !important;
+}
+.ant-select-multiple .ant-select-selection-overflow {
+  flex-wrap: nowrap !important;
+  flex-direction: column;
+  overflow-x: hidden;
+  max-height: 2.8rem;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}

@@ -64,7 +64,6 @@ const ParameterSensorAction = () => {
       setTouched({ parameterName: true });
       return;
     }
-    console.log(action);
     if (action === "add-parameter") {
       submitForm();
     } else {
@@ -74,7 +73,7 @@ const ParameterSensorAction = () => {
           reasonRef.current = reason;
           await submitForm();
         },
-        "parameter"
+        "parameter",
       );
     }
   };
@@ -89,38 +88,38 @@ const ParameterSensorAction = () => {
     >
       {({ values, validateForm, submitForm, setTouched, resetForm }) => (
         <Form>
-          <div className="row">
-            <div className="m-3 col-md-5 add-user-input_container">
-              <label style={{ color: "#262626" }}>Role Name</label>
+          <div className='row'>
+            <div className='m-3 col-md-5 add-user-input_container'>
+              <label style={{ color: "#262626" }}>Parameter Name</label>
               <Field
-                name="parameterName"
-                className="form-control"
+                name='parameterName'
+                className='form-control'
                 readOnly={isViewMode}
               />
 
               <ErrorMessage
-                name="parameterName"
-                component="span"
-                className="text-danger mt-2"
+                name='parameterName'
+                component='span'
+                className='text-danger mt-2'
               />
             </div>
-            <div className="m-3 col-md-5 add-user-input_container">
-              <label style={{ color: "#262626" }}>Role Description</label>
+            <div className='m-3 col-md-5 add-user-input_container'>
+              <label style={{ color: "#262626" }}>Description</label>
 
               <Field
-                name="description"
-                className="form-control"
+                name='description'
+                className='form-control'
                 readOnly={isViewMode}
               />
               <ErrorMessage
-                name="description"
-                component="span"
-                className="text-danger mt-2"
+                name='description'
+                component='span'
+                className='text-danger mt-2'
               />
             </div>
           </div>
 
-          <div className="m-5 text-center">
+          <div className='m-5 text-center'>
             <IntactionActionBtns
               actionFunction={() =>
                 handleExternalSubmit(validateForm, submitForm, setTouched)

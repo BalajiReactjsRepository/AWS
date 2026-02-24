@@ -25,14 +25,16 @@
 
 .error-code,
 .error-msg {
-  transition: opacity 0.5s linear, margin-top 0.5s linear;
+  transition:
+    opacity 0.5s linear,
+    margin-top 0.5s linear;
 }
 
-.loading h1,
+/* .loading h1,
 .loading h2 {
   margin-top: 0px;
   opacity: 0;
-}
+} */
 
 .gears {
   position: relative;

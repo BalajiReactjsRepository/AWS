@@ -21,7 +21,7 @@ const BreadcrumbComp = () => {
         part
           .split("-")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ")
+          .join(" "),
       )
       .join(" / ");
   };
@@ -60,7 +60,7 @@ const BreadcrumbComp = () => {
   return (
     <>
       <Breadcrumb
-        separator="<"
+        separator='<'
         style={{ marginBottom: "4px" }}
         items={breadcrumbItems}
       />

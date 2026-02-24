@@ -68,7 +68,7 @@ const StationDropdown = (props) => {
             const stations = data?.result ?? [];
             const options = stations.map((s) => ({
               value: s._id,
-              label: s.stationName,
+              label: `${s.stationName} (${s.stationId})`,
             }));
             setProfileStations(options);
           }
@@ -89,13 +89,13 @@ const StationDropdown = (props) => {
     const { data, isSelected, innerRef, innerProps } = props;
 
     return (
-      <div ref={innerRef} {...innerProps} className="custom-option ms-1">
+      <div ref={innerRef} {...innerProps} className='custom-option ms-1'>
         <input
-          type="checkbox"
+          type='checkbox'
           checked={isSelected}
           onChange={() => null} // avoid React warnings
         />
-        <label className="ms-2">{data.label}</label>
+        <label className='ms-2'>{data.label}</label>
       </div>
     );
   };
@@ -112,7 +112,7 @@ const StationDropdown = (props) => {
     const hasSelectAll = selectedOptions.some((opt) => opt.value === "0");
 
     const isSelectAllPreviouslySelected = selectedStations.some(
-      (opt) => opt.value === "0"
+      (opt) => opt.value === "0",
     );
 
     if (hasSelectAll && !isSelectAllPreviouslySelected) {
@@ -129,19 +129,19 @@ const StationDropdown = (props) => {
   };
 
   return (
-    <div className="me-3">
-      <label className="label-primary" htmlFor="stationSelect">
+    <div className='me-3'>
+      <label className='label-primary' htmlFor='stationSelect'>
         Select Station *
       </label>
-      <div className="slect-drop-container">
+      <div className='slect-drop-container'>
         <Select
-          id="stationSelect"
+          id='stationSelect'
           options={profileStations}
           value={selectedStations}
           onChange={handleSelectChange}
           isMulti
           isSearchable
-          placeholder="Select stations..."
+          placeholder='Select stations...'
           components={{ Option: CustomOption }}
           closeMenuOnSelect={false}
           hideSelectedOptions={false}
@@ -166,7 +166,7 @@ const StationDropdown = (props) => {
         />
       </div>
       {stationError ? (
-        <span className="text-danger">*please select stations</span>
+        <span className='text-danger'>*please select stations</span>
       ) : (
         <span></span>
       )}

@@ -44,20 +44,20 @@ const SensorsTable = ({ setIsModalVisible, isModalVisible, stationId }) => {
     { title: "Serial No", dataIndex: "serialNo", key: "serialNo" },
     {
       title: "Showing Grid",
-      dataIndex: "showingGrid",
-      key: "showingGrid",
+      dataIndex: "showInGrid",
+      key: "showInGrid",
       render: (val) => (val ? "✔️" : "❌"),
     },
     {
       title: "Show in Map Tooltip",
-      dataIndex: "mapTooltip",
-      key: "mapTooltip",
+      dataIndex: "showInMapTooltip",
+      key: "showInMapTooltip",
       render: (val) => (val ? "✔️" : "❌"),
     },
     {
       title: "Show in Widget",
-      dataIndex: "widget",
-      key: "widget",
+      dataIndex: "showInWidget",
+      key: "showInWidget",
       render: (val) => (val ? "✔️" : "❌"),
     },
     {
@@ -70,19 +70,19 @@ const SensorsTable = ({ setIsModalVisible, isModalVisible, stationId }) => {
 
   return (
     <Modal
-      title="Sensor Details"
+      title='Sensor Details'
       open={isModalVisible}
       footer={null}
       onCancel={() => setIsModalVisible(false)}
       width={1000}
     >
       <Table
-        className="custom-sensor-table"
-        size="small"
+        className='custom-sensor-table'
+        size='small'
         bordered
         columns={columns}
         dataSource={sensor}
-        rowKey="sensorName"
+        rowKey='sensorName'
         pagination={false}
         scroll={tableSizes(5, undefined)}
       />

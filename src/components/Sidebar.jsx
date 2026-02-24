@@ -15,13 +15,17 @@ import manageUser from "../images/AdminImages/sidebarIcons/manageUser.png";
 import ClientConfig from "../images/AdminImages/sidebarIcons/clientConfig.png";
 import manageProfile from "../images/AdminImages/sidebarIcons/manageProfile.png";
 import manageStation from "../images/AdminImages/sidebarIcons/manageStation.png";
+import dataParameterMapping from "../images/AdminImages/sidebarIcons/derived_parameter_mapping.svg";
+import hydraulics from "../images/AdminImages/sidebarIcons/hydraulics.svg";
+import manualDataCheck from "../images/AdminImages/sidebarIcons/manual_data_check.svg";
+import manageStationAccess from "../images/AdminImages/sidebarIcons/manage_station_access.svg";
 // import mangeNotification from "../images/AdminImages/sidebarIcons/manageNotification.png";
 // import manageAds from "../images/AdminImages/sidebarIcons/mangeAds.png";
 // import faqmanual from "../images/AdminImages/sidebarIcons/faqmanual.png";
 // import custSupport from "../images/AdminImages/sidebarIcons/customersupport.png";
 import BackupIcon from "../images/AdminImages/sidebarIcons/backup-file.png";
 //import stationAccess from "../images/AdminImages/sidebarIcons/stationAccess.png";
-import dataQuality from "../images/AdminImages/sidebarIcons/DataQuality.png";
+// import dataQuality from "../images/AdminImages/sidebarIcons/DataQuality.png";
 import units from "../images/AdminImages/sidebarIcons/Units.png";
 import sensorsettigs from "../images/AdminImages/sidebarIcons/sensorsetting.png";
 
@@ -76,6 +80,24 @@ const sidebarMenuList = [
         menuIcon: sensorsettigs,
         path: "/parameter-in-sensor",
       },
+      {
+        menuCode: "dpm",
+        menuName: "Derived Parameter Mapping",
+        menuIcon: dataParameterMapping,
+        path: "/derived-parameter-mapping",
+      },
+      {
+        menuCode: "hd",
+        menuName: "Hydraulic Details",
+        menuIcon: hydraulics,
+        path: "/hydraulic-details",
+      },
+      {
+        menuCode: "dqp",
+        menuName: "Manual Data Check",
+        menuIcon: manualDataCheck,
+        path: "/manual-data-check",
+      },
     ],
   },
   {
@@ -116,12 +138,12 @@ const sidebarMenuList = [
         menuIcon: manageStation,
         path: "/manage-station",
       },
-      // {
-      //   menuCode: "msa",
-      //   menuName: "Manage Station Access",
-      //   menuIcon: stationAccess,
-      //   path: "/manage-station-access",
-      // },
+      {
+        menuCode: "msa",
+        menuName: "Manage Station Access",
+        menuIcon: manageStationAccess,
+        path: "/manage-station-access",
+      },
     ],
   },
   // {
@@ -210,20 +232,20 @@ const sidebarMenuList = [
       },
     ],
   },
-  {
-    menuCode: "DQ",
-    menuName: "Data Quality",
-    path: "/data-quality",
-    menuIcon: dataQuality,
-    subMenu: [
-      {
-        menuCode: "dqp",
-        menuIcon: dataQuality,
-        menuName: "Data Quality",
-        path: "/data-quality",
-      },
-    ],
-  },
+  // {
+  //   menuCode: "DQ",
+  //   menuName: "Data Quality",
+  //   path: "/data-quality",
+  //   menuIcon: dataQuality,
+  //   subMenu: [
+  //     {
+  //       menuCode: "dqp",
+  //       menuIcon: dataQuality,
+  //       menuName: "Data Quality",
+  //       path: "/data-quality",
+  //     },
+  //   ],
+  // },
 ];
 
 const Sidebar = () => {
@@ -257,29 +279,29 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar-container">
-      <div className="text-center mb-2">
-        <img src={azistlogo} alt="logo" style={{ width: "60%" }} />
+    <div className='sidebar-container'>
+      <div className='text-center mb-2'>
+        <img src={azistlogo} alt='logo' style={{ width: "60%" }} />
       </div>
 
-      <div className="accordion  accordion-container-sidebar">
+      <div className='accordion  accordion-container-sidebar'>
         {sidebarMenuList.map((m) => (
           <div
-            className="accordion-item"
+            className='accordion-item'
             key={m.menuCode}
             style={{ border: "none" }}
           >
-            <h2 className="accordion-header">
+            <h2 className='accordion-header'>
               <button
                 className={`accordion-button sidebar-acordian-btn ${
                   activeKey === m.menuCode ? "expanded" : "collapsed"
                 }`}
-                type="button"
+                type='button'
                 onClick={() => handleToggle(m.menuCode)}
               >
                 <img
                   src={m.menuIcon}
-                  alt="menuIcon"
+                  alt='menuIcon'
                   className={`me-2 icon-img ${
                     activeKey === m.menuCode ? "expanded" : ""
                   }`}
@@ -289,24 +311,24 @@ const Sidebar = () => {
             </h2>
 
             {activeKey === m.menuCode && (
-              <div className="accordion-body" style={{ whiteSpace: "nowrap" }}>
-                <ul className="list-unstyled ps-2 ">
+              <div className='accordion-body' style={{ whiteSpace: "nowrap" }}>
+                <ul className='list-unstyled ps-2 '>
                   {m.subMenu.map((sm) => (
                     <li
                       key={sm.menuCode}
                       className={`mb-1 ${getActivePathClass(
                         pathName,
-                        sm.path
+                        sm.path,
                       )}`}
                     >
                       {/* /manage-station-access */}
                       <Link
                         to={`/admin${m.path}${sm.path}`}
-                        className="text-decoration-none d-flex align-items-center"
+                        className='text-decoration-none d-flex align-items-center'
                       >
                         <img
                           src={sm.menuIcon}
-                          alt="subIcon"
+                          alt='subIcon'
                           style={{
                             width: "16px",
                             height: "16px",
@@ -318,7 +340,7 @@ const Sidebar = () => {
                         <p
                           className={`mb-1 ${getActivePathClass(
                             pathName,
-                            sm.path
+                            sm.path,
                           )}`}
                         >
                           {sm.menuName}
@@ -333,13 +355,13 @@ const Sidebar = () => {
         ))}
       </div>
 
-      <div className="text-center mt-2">
+      <div className='text-center mt-2'>
         <small style={{ color: "#000000" }}>
           <a
             style={{ color: "inherit", textDecoration: "none" }}
-            href="https://www.azistaindustries.com/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='https://www.azistaindustries.com/'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Copyright © {new Date().getFullYear()} Azista
           </a>

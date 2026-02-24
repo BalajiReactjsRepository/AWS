@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
-
-import { buildColumns } from "../../../utils/tableAction";
-
-import SensorsTable from "./SensorsTable";
-import { handleDownloadCsv } from "../../../utils/downloadData";
 import DataTable from "../../../components/DataTable";
 import ComponentTopSec from "../../../components/ComponentTopSec";
-import api from "../../../api/axiosConfig";
+import { buildColumns } from "../../../utils/tableAction";
+import { handleDownloadCsv } from "../../../utils/downloadData";
 import { useStore } from "../../../Context/masterapis/MasterApisContext";
 import { apiCaller } from "../../../api/apihelper";
+import api from "../../../api/axiosConfig";
 
-const ManageStation = () => {
+const ParameterSensor = () => {
   const [data, setData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [filteredInfo, setFilteredInfo] = useState({});
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   const [loading, setLoading] = useState(false);
-  const [stationId, setStationId] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   const { store } = useStore();
   const profiles = store.profiles;
 
@@ -33,7 +27,7 @@ const ManageStation = () => {
     if (!profileId) return;
 
     const fetchDataApi = async () => {
-      const url = `/Admin/Station/GetAllStations`;
+      const url = `/Admin/DerivedParameterMapping/GetAllDerivedParameterMapping`;
 
       const formdata = new FormData();
       formdata.append("profileId", profileId);
@@ -47,39 +41,17 @@ const ManageStation = () => {
     fetchDataApi();
   }, [profileId]);
 
-  const onChangeProfile = (e) => {
-    const id = e.target.value;
-    setProfileId(id);
-  };
-
-  const onSelectChange = (newSelectedRowKeys) => {
+  function onSelectChange(newSelectedRowKeys) {
     setSelectedRowKeys(newSelectedRowKeys);
-  };
+  }
 
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
   };
 
-  const selectFields = [
-    "stationId",
-    "stationName",
-    "district",
-    "state",
-    "status",
-    "performedBy",
-    "performedOn",
-  ];
-
-  const searchColumns = [
-    "stationId",
-    "stationName",
-    "district",
-    "block",
-    "address",
-    "city",
-    "state",
-  ];
+  const selectFields = ["performedBy", "status"];
+  const searchColumns = ["profileName", "sensorName"];
 
   const filteredData = data.filter((item) => {
     // Dynamic search
@@ -106,18 +78,20 @@ const ManageStation = () => {
     pagination.current * pagination.pageSize,
   );
 
-  const handleDeleteStation = async (reason, record) => {
+  const handleDeleteRole = async (reason, record) => {
     const formData = new FormData();
 
     formData.append("_id", record._id);
     formData.append("IsActive", false);
     formData.append("Reason", reason);
 
-    const url = `/Admin/Station/ActiveDeactiveStation`;
-
     apiCaller({
       showSuccess: true,
-      apiCall: () => api.post(url, formData),
+      apiCall: () =>
+        api.post(
+          "/Admin/DerivedParameterMapping/ActiveDeactiveDerivedParameterMapping",
+          formData,
+        ),
       onSuccess: () => {
         const updatdData = data.map((d) =>
           d._id === record._id ? { ...d, status: "Inactive" } : d,
@@ -127,46 +101,35 @@ const ManageStation = () => {
     });
   };
 
-  const handleProfileClick = (id) => {
-    setStationId(id);
-    setIsModalVisible(true);
-  };
-
-  const customRenderMap = {
-    profileName: (text, record) => (
-      <span
-        style={{
-          color: "#0084FF",
-          textDecoration: "underline",
-          cursor: "pointer",
-        }}
-        onClick={() => handleProfileClick(record._id)}
-      >
-        {text}
-      </span>
-    ),
-  };
-
   let columns = [];
 
   if (data && data.length > 0) {
     const numberFields = [];
     const dateFields = ["performedOn"];
-    const excludeFields = ["_id", "profileId"];
+    const excludeFields = ["_id"];
     const filterFields = {
       selectFields,
       numberFields,
       dateFields,
       excludeFields,
     };
+
     columns = buildColumns(
-      "station",
+      "Mapping",
       data,
       filterFields,
-      handleDeleteStation,
-      customRenderMap,
+      handleDeleteRole,
+      {},
+      true,
+      false,
+      false,
     );
   }
+
+  const onChangeProfile = (e) => {
+    const id = e.target.value;
+    setProfileId(id);
+  };
 
   const handleDownload = () => {
     handleDownloadCsv(selectedRowKeys, filteredData, columns);
@@ -177,8 +140,8 @@ const ManageStation = () => {
       <ComponentTopSec
         searchText={searchText}
         setSearchText={setSearchText}
-        to={`add-station`}
-        label={"Add Station"}
+        to={"add-derived-parameter-mapping"}
+        label={"Add Mapping"}
         handleDownload={handleDownload}
         paginatedData={paginatedData}
         importBtn={true}
@@ -186,13 +149,6 @@ const ManageStation = () => {
         profileId={profileId}
         onChangeProfile={onChangeProfile}
       />
-
-      <SensorsTable
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-        stationId={stationId}
-      />
-      {/* {isModalVisible && ()} */}
       <DataTable
         loading={loading}
         rowSelection={rowSelection}
@@ -202,10 +158,10 @@ const ManageStation = () => {
         filteredData={filteredData}
         setPagination={setPagination}
         setFilteredInfo={setFilteredInfo}
-        height={370}
+        height={350}
       />
     </>
   );
 };
 
-export default ManageStation;
+export default ParameterSensor;

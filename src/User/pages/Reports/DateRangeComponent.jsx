@@ -11,7 +11,7 @@ const DateRangeComponent = (props) => {
   };
 
   return (
-    <Space direction="vertical" size={14}>
+    <Space direction='vertical' size={14}>
       <RangePicker
         value={dateRange}
         onChange={handleDateChange}

@@ -6,7 +6,9 @@ import SearchBar from "./SearchBar";
 import AddBtn from "./AddBtn";
 import DownloadBtn from "./DownloadBtn";
 //import fileIcon from "../images/file-import.png";
+import { LuRefreshCw } from "react-icons/lu";
 import "./components.css";
+import Button from "react-bootstrap/Button";
 
 const ComponentTopSec = (props) => {
   const {
@@ -20,19 +22,23 @@ const ComponentTopSec = (props) => {
     profiles,
     profileId,
     onChangeProfile,
+    showAddBtn = true,
+    showDownloadBtn = true,
+    refreshBtn = false,
+    refreshFun = () => {},
   } = props;
 
   return (
-    <div className="component-top-sec">
+    <div className='component-top-sec'>
       <SearchBar value={searchText} setFun={setSearchText} />
-      <div className="d-flex">
+      <div className='d-flex'>
         {importBtn && (
           <select
-            className="form-select mapping-drop-input me-3"
+            className='form-select mapping-drop-input me-3'
             value={profileId}
             onChange={onChangeProfile}
           >
-            <option value="">Select Profile</option>
+            <option value=''>Select Profile</option>
             {profiles.map((p) => (
               <option key={p._id} value={p._id}>
                 {p.profileName}
@@ -40,10 +46,16 @@ const ComponentTopSec = (props) => {
             ))}
           </select>
         )}
-
-        <Link to={to}>
-          <AddBtn label={label} />
-        </Link>
+        {showAddBtn && (
+          <Link to={to}>
+            <AddBtn label={label} />
+          </Link>
+        )}
+        {refreshBtn && (
+          <Button variant='primary' onClick={refreshFun}>
+            <LuRefreshCw /> Refresh
+          </Button>
+        )}
         {/* {importBtn && (
           <Link to="import-station">
             <Button
@@ -64,7 +76,9 @@ const ComponentTopSec = (props) => {
             </Button>
           </Link>
         )} */}
-        <DownloadBtn handleDownload={handleDownload} data={paginatedData} />
+        {showDownloadBtn && (
+          <DownloadBtn handleDownload={handleDownload} data={paginatedData} />
+        )}
       </div>
     </div>
   );

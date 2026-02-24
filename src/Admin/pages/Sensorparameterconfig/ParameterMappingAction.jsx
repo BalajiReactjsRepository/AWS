@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Button, Table, Input, Space, Modal } from "antd";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./ParameterMappingAction.css";
-
+import { Alert } from "antd";
 import arrowIcon from "../../../images/AdminImages/arrow-small-left.png";
 import trashIcon from "../../../images/AdminImages/trash.png";
 import editIcon from "../../../images/AdminImages/file-edit.png";
@@ -33,7 +33,7 @@ const ParameterMappingAction = () => {
    *  Main Table State
    * ---------------------------------------------------- */
   const [sensorParameters, setSensorParameters] = useState(
-    record?.parameters ?? []
+    record?.parameters ?? [],
   );
 
   /** ----------------------------------------------------
@@ -68,6 +68,7 @@ const ParameterMappingAction = () => {
   const [sensorId, setSensorId] = useState(record?.sensorId ?? "");
 
   const [mainError, setMainErros] = useState({ profile: false, sensor: false });
+  const [showAlert, setShowAlert] = useState(false);
 
   /** ----------------------------------------------------
    * Fetch Dropdown Values
@@ -123,7 +124,7 @@ const ParameterMappingAction = () => {
     if (id === "parameter") {
       const selected = findParameter(value);
       const exists = sensorParameters.some(
-        (p) => p.sensorParameterId === value
+        (p) => p.sensorParameterId === value,
       );
 
       if (selected && !exists) {
@@ -151,7 +152,8 @@ const ParameterMappingAction = () => {
 
   const handleAddParameter = () => {
     if (!addParameter.sensorParameterId || !addParameter.values)
-      return alert("Please select parameter and enter value");
+      // return alert("Please select parameter and enter value");
+      return setShowAlert(true);
 
     setSensorParameters((prev) => [...prev, addParameter]);
 
@@ -219,8 +221,8 @@ const ParameterMappingAction = () => {
       prev.map((p) =>
         p.sensorParameterId === editParameter._id
           ? { ...p, values: editParameter.value }
-          : p
-      )
+          : p,
+      ),
     );
     setShowEnter(false);
     setIsEditModalOpen(false);
@@ -232,7 +234,7 @@ const ParameterMappingAction = () => {
   const handleDeleteParameter = async (id, sensorParamId) => {
     if (!id) {
       setSensorParameters((prev) =>
-        prev.filter((p) => p.sensorParameterId !== sensorParamId)
+        prev.filter((p) => p.sensorParameterId !== sensorParamId),
       );
       return;
     }
@@ -241,7 +243,7 @@ const ParameterMappingAction = () => {
       callActionWarningPopup(
         "Delete",
         (reason) => resolve(reason),
-        "parameter"
+        "parameter",
       );
     });
 
@@ -280,7 +282,7 @@ const ParameterMappingAction = () => {
         callActionWarningPopup(
           "edit",
           (reason) => resolve(reason),
-          "parameter"
+          "parameter",
         );
       });
     }
@@ -292,7 +294,7 @@ const ParameterMappingAction = () => {
         values: unitId === "" || unitId === "enter" ? values : unitId,
         ...rest,
         Reason: reason,
-      })
+      }),
     );
 
     const url = `/Admin/SensorParameterMapping/${
@@ -338,15 +340,15 @@ const ParameterMappingAction = () => {
         render: (_, record) => (
           <Space>
             <Button
-              type="link"
-              icon={<img src={editIcon} alt="edit" width={16} />}
+              type='link'
+              icon={<img src={editIcon} alt='edit' width={16} />}
               onClick={() => openEditModal(record)}
             />
 
             <Button
-              type="link"
+              type='link'
               danger
-              icon={<img src={trashIcon} alt="delete" width={16} />}
+              icon={<img src={trashIcon} alt='delete' width={16} />}
               onClick={() =>
                 handleDeleteParameter(record._id, record.sensorParameterId)
               }
@@ -369,29 +371,39 @@ const ParameterMappingAction = () => {
   };
 
   return (
-    <div className="p-3 row">
+    <div className='p-3 row'>
+      {showAlert && (
+        <div className='my-2'>
+          <Alert
+            message='Please select parameter and enter value'
+            type='warning'
+            closable
+            onClose={() => setShowAlert(false)}
+          />
+        </div>
+      )}
       {/* ============== HEADER ============== */}
       {action !== "edit-parameter" && (
         <>
-          <div className="col-12 col-lg-9 mb-3">
-            <div className="mapping-header row">
+          <div className='col-12 col-lg-9 mb-3'>
+            <div className='mapping-header row'>
               <Button
-                className="col-2 col-lg-1 custom-button mb-4"
+                className='col-2 col-lg-1 custom-button mb-4'
                 style={{ background: "#F2F2F2", border: "none" }}
-                icon={<img src={arrowIcon} alt="back" />}
+                icon={<img src={arrowIcon} alt='back' />}
                 onClick={() => navigate(-1)}
               >
                 Back
               </Button>
 
-              <div className="col-4 col-lg-5">
+              <div className='col-4 col-lg-5'>
                 <select
-                  className="form-select mapping-drop-input"
+                  className='form-select mapping-drop-input'
                   value={profileId}
                   onChange={onChangeProfile}
                   disabled={isViewMode}
                 >
-                  <option value="">Select Profile</option>
+                  <option value=''>Select Profile</option>
                   {profiles.map((p) => (
                     <option key={p._id} value={p._id}>
                       {p.profileName}
@@ -399,26 +411,26 @@ const ParameterMappingAction = () => {
                   ))}
                 </select>
 
-                <span className="ms-2 text-danger">
+                <span className='ms-2 text-danger'>
                   {mainError.profile ? "select profile" : ""}
                 </span>
               </div>
 
-              <div className="col-4 col-lg-5">
+              <div className='col-4 col-lg-5'>
                 <select
-                  className="form-select mapping-drop-input"
+                  className='form-select mapping-drop-input'
                   value={sensorId}
                   onChange={onChangeSensor}
                   disabled={isViewMode}
                 >
-                  <option value="">Select Sensor</option>
+                  <option value=''>Select Sensor</option>
                   {sensors.map((s) => (
                     <option key={s._id} value={s._id}>
                       {s.sensorName}
                     </option>
                   ))}
                 </select>
-                <span className="ms-2 text-danger">
+                <span className='ms-2 text-danger'>
                   {mainError.sensor ? "select sensor" : ""}
                 </span>
               </div>
@@ -431,18 +443,18 @@ const ParameterMappingAction = () => {
 
       {/* ============== ADD PARAMETER ============== */}
       {!isViewMode && (
-        <div className="parameter-section col-12">
+        <div className='parameter-section col-12'>
           <h4>Sensor Parameter</h4>
 
-          <div className="parameter-actions row">
-            <div className="col-3">
+          <div className='parameter-actions row'>
+            <div className='col-3'>
               <select
-                className="form-select mapping-drop-input"
+                className='form-select mapping-drop-input'
                 value={addParameter.sensorParameterId}
-                id="parameter"
+                id='parameter'
                 onChange={onChangeAdd}
               >
-                <option value="">Select Parameter</option>
+                <option value=''>Select Parameter</option>
                 {parameters.map((p) => (
                   <option key={p._id} value={p._id}>
                     {p.parameterName}
@@ -452,14 +464,14 @@ const ParameterMappingAction = () => {
             </div>
 
             {addParameter.sensorParameterId === "676d2aea956863f31b4bb782" ? (
-              <div className="col-3">
+              <div className='col-3'>
                 <select
-                  className="form-select mapping-drop-input"
+                  className='form-select mapping-drop-input'
                   value={addParameter.unitId}
-                  id="unit"
+                  id='unit'
                   onChange={onChangeAdd}
                 >
-                  <option value="">Select Unit</option>
+                  <option value=''>Select Unit</option>
 
                   {units.map((u) => (
                     <option key={u._id} value={u._id}>
@@ -469,9 +481,9 @@ const ParameterMappingAction = () => {
                 </select>
               </div>
             ) : (
-              <div className="col-3">
+              <div className='col-3'>
                 <Input
-                  placeholder="Enter Parameter Value"
+                  placeholder='Enter Parameter Value'
                   value={enterValue}
                   maxLength={50}
                   onChange={(e) => {
@@ -485,14 +497,14 @@ const ParameterMappingAction = () => {
               </div>
             )}
 
-            <div className="col-3 text-end">
-              <Button type="primary" onClick={handleAddParameter}>
+            <div className='col-3 text-end'>
+              <Button type='primary' onClick={handleAddParameter}>
                 + Add Parameter
               </Button>
 
               <Button
-                type="primary"
-                className="ms-4"
+                type='primary'
+                className='ms-4'
                 onClick={handleAssign}
                 disabled={!sensorParameters.length}
               >
@@ -505,43 +517,43 @@ const ParameterMappingAction = () => {
 
       {/* ============== TABLE ============== */}
       <Table
-        className="custom-role-table mt-3"
+        className='custom-role-table mt-3'
         columns={columns}
         dataSource={sensorParameters.filter((s) => s.isActive)}
         pagination={false}
         rowKey={(row) => row._id || row.sensorParameterId}
-        size="small"
+        size='small'
         bordered
       />
 
       {/* ============== EDIT MODAL ============== */}
       <Modal
-        title="Edit Parameter Value"
+        title='Edit Parameter Value'
         open={isEditModalOpen}
         onOk={saveEditValue}
         onCancel={() => setIsEditModalOpen(false)}
       >
-        <div className="row">
+        <div className='row'>
           {showEnter ? (
-            <div className="col-6">
+            <div className='col-6'>
               <Input
-                placeholder="Enter Parameter Value"
-                id="value"
+                placeholder='Enter Parameter Value'
+                id='value'
                 value={editParameter.value}
                 onChange={onChangeEdit}
                 maxLength={50}
               />
             </div>
           ) : (
-            <div className="col-6">
+            <div className='col-6'>
               <select
-                className="form-select mapping-drop-input"
+                className='form-select mapping-drop-input'
                 value={editParameter.unitId}
-                id="unit"
+                id='unit'
                 onChange={onChangeEdit}
               >
-                <option value="">Select Unit</option>
-                <option value="enter">Enter value</option>
+                <option value=''>Select Unit</option>
+                <option value='enter'>Enter value</option>
                 {units.map((u) => (
                   <option key={u._id} value={u._id}>
                     {u.unitName}

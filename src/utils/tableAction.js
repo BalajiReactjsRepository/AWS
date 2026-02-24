@@ -15,8 +15,18 @@ export const buildColumns = (
   filterFields = {},
   deleteFun,
   customRenderMap = {},
-  isActionNeed = true
+  isActionNeed = true,
+  editShow = true,
+  viewShow = true
 ) => {
+  // console.log(
+  //   menu,
+  //   filterFields,
+  //   deleteFun,
+  //   customRenderMap,
+  //   isActionNeed,
+  //   editShow,
+  // );
   const {
     numberFields = [],
     selectFields = [],
@@ -65,7 +75,7 @@ export const buildColumns = (
           (val) => ({
             text: typeof val === "boolean" ? (val ? "True" : "False") : val,
             value: val,
-          })
+          }),
         );
         col.onFilter = (value, record) => record[key] === value;
       }
@@ -88,8 +98,15 @@ export const buildColumns = (
       title: "Action",
       width: "6rem",
       key: "action",
+      fixed: "right", // ✅ REQUIRED
       render: (_, record) => (
-        <TableActionsBtns menu={menu} row={record} deleteFun={deleteFun} />
+        <TableActionsBtns
+          menu={menu}
+          row={record}
+          deleteFun={deleteFun}
+          editShow={editShow}
+          viewShow={viewShow}
+        />
       ),
     });
   }

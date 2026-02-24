@@ -26,8 +26,8 @@ const DataTable = (props) => {
 
   return (
     <Table
-      className="custom-role-table"
-      size="small"
+      className='custom-role-table'
+      size='small'
       loading={{
         spinning: loading,
         indicator: <Loader />,

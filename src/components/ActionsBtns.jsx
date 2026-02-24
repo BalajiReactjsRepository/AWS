@@ -18,7 +18,7 @@ export const callActionWarningPopup = (
   action = "Delete",
   actionFunction,
   menu,
-  row
+  row,
 ) => {
   const handleAction = (reason) => {
     Swal.close();
@@ -29,15 +29,15 @@ export const callActionWarningPopup = (
     action === "Delete"
       ? `Deactivate ${menu || ""}`
       : action.startsWith("add")
-      ? `Save ${menu || ""}`
-      : `Update ${menu || ""}`;
+        ? `Save ${menu || ""}`
+        : `Update ${menu || ""}`;
 
   const meaningAction =
     action === "Delete"
       ? `Deactivate`
       : action.startsWith("add")
-      ? `Save`
-      : `Update`;
+        ? `Save`
+        : `Update`;
 
   const loaderDiv = document.createElement("div");
   const root = ReactDOM.createRoot(loaderDiv);
@@ -47,7 +47,7 @@ export const callActionWarningPopup = (
       handleAction={handleAction}
       text={actionText}
       action={meaningAction}
-    />
+    />,
   );
 
   Swal.fire({
@@ -61,36 +61,50 @@ export const callActionWarningPopup = (
   });
 };
 
-export const TableActionsBtns = ({ menu, row, deleteFun }) => {
+export const TableActionsBtns = ({
+  menu,
+  row,
+  deleteFun,
+  editShow,
+  viewShow,
+}) => {
   return (
     <Space>
-      <Link
-        to={`edit-${menu}`}
-        state={{ record: row }}
-        aria-label={`Edit ${menu}`}
-      >
-        <img src={editIcon} alt="edit" style={{ width: 16, height: 16 }} />
-      </Link>
+      {editShow && (
+        <Link
+          to={`edit-${menu}`}
+          state={{ record: row }}
+          aria-label={`Edit ${menu}`}
+        >
+          <img src={editIcon} alt='edit' style={{ width: 16, height: 16 }} />
+        </Link>
+      )}
 
       {menu !== "parameter" && (
         <Button
-          type="link"
+          type='link'
           danger
           icon={
             <img
               src={trashIcon}
-              alt="delete"
+              alt='delete'
               style={{ width: 16, height: 16 }}
             />
           }
           onClick={() => callActionWarningPopup("Delete", deleteFun, menu, row)}
-          aria-label="Delete Role"
+          aria-label='Delete Role'
         />
       )}
 
-      <Link to={`view-${menu}`} state={{ record: row }} aria-label="View Role">
-        <img src={eyeIcon} alt="view" style={{ width: 16, height: 16 }} />
-      </Link>
+      {viewShow && (
+        <Link
+          to={`view-${menu}`}
+          state={{ record: row }}
+          aria-label='View Role'
+        >
+          <img src={eyeIcon} alt='view' style={{ width: 16, height: 16 }} />
+        </Link>
+      )}
     </Space>
   );
 };
@@ -105,13 +119,13 @@ export const IntactionActionBtns = ({ actionFunction, setFunc }) => {
   return (
     <Space>
       <Button
-        className="custom-button"
+        className='custom-button'
         style={{
           background: "#F2F2F2",
           color: "#000",
           border: "none",
         }}
-        icon={<img src={arrowIcon} alt="back" />}
+        icon={<img src={arrowIcon} alt='back' />}
         onClick={() => navigate(-1)}
       >
         Back
@@ -120,22 +134,22 @@ export const IntactionActionBtns = ({ actionFunction, setFunc }) => {
       {!isViewMode && (
         <>
           <Button
-            className="custom-button"
-            type="primary"
-            icon={<img src={saveIcon} alt="save" />}
+            className='custom-button'
+            type='primary'
+            icon={<img src={saveIcon} alt='save' />}
             onClick={actionFunction}
           >
             {isAddMode ? "Save" : "Update"}
           </Button>
 
           <Button
-            className="custom-button"
+            className='custom-button'
             style={{
               border: "2px solid #1890ff",
               color: "#1890ff",
               background: "transparent",
             }}
-            icon={<img src={crossIcon} alt="clear" />}
+            icon={<img src={crossIcon} alt='clear' />}
             onClick={setFunc}
           >
             Clear

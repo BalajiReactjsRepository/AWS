@@ -25,8 +25,8 @@ const Pagination = (props) => {
     return pages;
   };
   return (
-    <div className="d-flex justify-content-between">
-      <div className="flex align-self-end justify-end mt-2 space-x-2">
+    <div className='d-flex justify-content-between mb-5'>
+      <div className='flex align-self-end justify-end mt-2 space-x-2'>
         Rows Per Page{" "}
         <select
           value={rowsPerPage}
@@ -39,11 +39,11 @@ const Pagination = (props) => {
           ))}
         </select>
       </div>
-      <div className="flex align-self-end justify-end mt-2 space-x-2">
+      <div className='flex align-self-end justify-end mt-2 space-x-2'>
         <button
           onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
           disabled={currentPage === 1}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className='px-3 py-1 border rounded disabled:opacity-50'
         >
           Prev
         </button>
@@ -53,7 +53,7 @@ const Pagination = (props) => {
             key={page}
             onClick={() => setCurrentPage(page)}
             className={`px-3 py-1 mx-1 border rounded ${
-              currentPage === page ? "bg-blue-600 text-white" : ""
+              currentPage === page ? "bg-primary text-white" : ""
             }`}
           >
             {page}
@@ -63,7 +63,7 @@ const Pagination = (props) => {
         <button
           onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
           disabled={currentPage === totalPages}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className='px-3 py-1 border rounded disabled:opacity-50'
         >
           Next
         </button>

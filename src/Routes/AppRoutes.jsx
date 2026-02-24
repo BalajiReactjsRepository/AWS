@@ -1,7 +1,6 @@
 // routes/AppRoutes.jsx
 import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-
 import NotFoundPage from "../NotFound/index";
 
 import { AdminRoutes } from "./AdminRoutes";
