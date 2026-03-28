@@ -266,11 +266,11 @@ const Reports = () => {
   }, [filterType]);
 
   return (
-    <div className="mainContInfo">
-      <h5 className="report-title">Reports</h5>
-      <div className="row inputs-containr_header">
+    <div className='mainContInfo'>
+      <h5 className='report-title'>Reports</h5>
+      <div className='row inputs-containr_header'>
         {isRjProfile && (
-          <div className="col-12 col-md-3 mb-2">
+          <div className='col-12 col-md-3 mb-2'>
             <ReportTypeDrop
               reportType={reportType}
               setReportType={onChangeReportType}
@@ -313,8 +313,8 @@ const Reports = () => {
           setBlockError,
         })}
 
-        <div className="col-12 col-md-2 mt-3">
-          <button className="btn btn-primary" onClick={handleApicall}>
+        <div className='col-12 col-md-2 mt-3'>
+          <button className='btn btn-primary' onClick={handleApicall}>
             Generate Report
           </button>
         </div>
@@ -323,7 +323,7 @@ const Reports = () => {
       <div>
         {loading ? (
           <div
-            className="text-center"
+            className='text-center'
             style={{
               minHeight: "5rem",
               display: "flex",
@@ -331,7 +331,7 @@ const Reports = () => {
               justifyContent: "center",
             }}
           >
-            <ThreeDot color="#f58142" size="small" />
+            <ThreeDot color='#f58142' size='small' />
           </div>
         ) : reportsData?.length > 0 ? (
           config?.TableComponent && (
@@ -344,7 +344,7 @@ const Reports = () => {
           )
         ) : (
           <div
-            className="text-center h-50"
+            className='text-center h-50'
             style={{
               minHeight: "5rem",
               display: "flex",
@@ -353,7 +353,7 @@ const Reports = () => {
             }}
           >
             {showNodata && (
-              <div className="my-3 text-danger">No Data found</div>
+              <div className='my-3 text-danger'>No Data found</div>
             )}
           </div>
         )}

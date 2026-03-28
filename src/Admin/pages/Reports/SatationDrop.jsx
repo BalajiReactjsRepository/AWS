@@ -53,7 +53,7 @@ const StationDropdown = (props) => {
 
         const res = await api.post(url, formdata);
         const { data } = res;
-
+        console.log(data, "check");
         ErrorHandler.onLoadingClose();
 
         if (data.statusCode === 200) {
@@ -127,6 +127,8 @@ const StationDropdown = (props) => {
       setSelectedStations(filtered);
     }
   };
+
+  console.log(profileStations, "profileStations");
 
   return (
     <div className='me-3'>

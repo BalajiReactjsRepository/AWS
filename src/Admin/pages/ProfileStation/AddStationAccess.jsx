@@ -102,11 +102,11 @@ const AddStationAccess = () => {
             </option>
           ))}
         </select>
-        {userId && (
+        {/* {userId && (
           <div className='bg-primary text-light profileVal me-3'>
             {users.find((u) => u._id === userId)?.name}
           </div>
-        )}
+        )} */}
         {userId && (
           <select
             className='form-select mapping-drop-input profileVal me-3'
@@ -121,11 +121,11 @@ const AddStationAccess = () => {
             ))}
           </select>
         )}
-        {profileId && (
+        {/* {profileId && (
           <div className='bg-primary text-light profileVal'>
             {profiles.find((u) => u._id === profileId)?.profileName}
           </div>
-        )}
+        )} */}
       </div>
       <div className='search-bar my-3 ps-3'>
         <SearchOutlined className='search-icon' />

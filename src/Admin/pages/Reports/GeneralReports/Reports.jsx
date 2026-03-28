@@ -66,7 +66,7 @@ const Reports = () => {
 
     const { formDate, toDate } = getDatebyInputChange(
       selectDateType,
-      dateRange
+      dateRange,
     );
     if (!selectedStations.length) return setStationError(true);
     if (!formDate || !toDate) return alert("Please select date");
@@ -90,14 +90,14 @@ const Reports = () => {
         setLoading(false);
         setReportsData(data.result);
         const profile = profileDetailsList.find(
-          (p) => p._id === selectedProfile
+          (p) => p._id === selectedProfile,
         );
 
         const filename =
           selectedStations.length > 1
             ? `ZIP-${profile?.profileName}-${moment().format("DD-MMM-YYYY")}`
             : `ZIP-${selectedStations[0]?.label}-${moment().format(
-                "DD-MMM-YYYY"
+                "DD-MMM-YYYY",
               )}`;
         setFileName(filename);
       } else {
@@ -122,7 +122,7 @@ const Reports = () => {
       if (data.statusCode === 200) {
         setReportsData(data.result);
         const profile = profileDetailsList.find(
-          (p) => p._id === selectedProfile
+          (p) => p._id === selectedProfile,
         );
         const now = new Date();
         const formattedDate = now
@@ -130,7 +130,7 @@ const Reports = () => {
           .replace(/\//g, "-");
 
         setFileName(
-          `${subPath}_${profile?.profileName || ""}_${formattedDate}`
+          `${subPath}_${profile?.profileName || ""}_${formattedDate}`,
         );
       } else {
         ErrorHandler.onError({ message: data.message || "Unknown error" });
@@ -218,10 +218,10 @@ const Reports = () => {
   ];
 
   return (
-    <div className="mainContInfo">
-      <h5 className="report-title">Reports</h5>
-      <div className="row inputs-containr_header">
-        <div className="col-12 col-md-3 mb-2">
+    <div className='mainContInfo'>
+      <h5 className='report-title'>Reports</h5>
+      <div className='row inputs-containr_header'>
+        <div className='col-12 col-md-3 mb-2'>
           <ReportTypeDrop
             reportType={reportType}
             setReportType={onChangeReportType}
@@ -257,8 +257,8 @@ const Reports = () => {
           setDateRange,
         })}
 
-        <div className="col-12 col-md-2 mt-3">
-          <button className="btn btn-primary" onClick={handleApicall}>
+        <div className='col-12 col-md-2 mt-3'>
+          <button className='btn btn-primary' onClick={handleApicall}>
             Generate Report
           </button>
         </div>
@@ -267,7 +267,7 @@ const Reports = () => {
       <div>
         {loading ? (
           <div
-            className="text-center"
+            className='text-center'
             style={{
               minHeight: "5rem",
               display: "flex",
@@ -275,7 +275,7 @@ const Reports = () => {
               justifyContent: "center",
             }}
           >
-            <ThreeDot color="#f58142" size="small" />
+            <ThreeDot color='#f58142' size='small' />
           </div>
         ) : reportsData?.length > 0 ? (
           config?.TableComponent && (
@@ -288,7 +288,7 @@ const Reports = () => {
           )
         ) : (
           <div
-            className="text-center h-50"
+            className='text-center h-50'
             style={{
               minHeight: "5rem",
               display: "flex",
@@ -297,7 +297,7 @@ const Reports = () => {
             }}
           >
             {showNodata && (
-              <div className="my-3 text-danger">No Data found</div>
+              <div className='my-3 text-danger'>No Data found</div>
             )}
           </div>
         )}

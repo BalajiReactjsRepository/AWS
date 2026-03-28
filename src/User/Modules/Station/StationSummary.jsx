@@ -28,7 +28,7 @@ const StationSummary = () => {
     district = "",
     stationEnvDataList,
   } = location?.state?.station || {};
-
+  console.log(stationEnvDataList, "stationEnvDataList");
   const getStationSummary = async (stationId, profileId) => {
     const url = `/User/UserViewStationDashboard/GetStationsBoxList`;
 
@@ -87,75 +87,75 @@ const StationSummary = () => {
   };
 
   return Object.keys(stationData).length > 0 ? (
-    <section className="mainContInfo">
+    <section className='mainContInfo'>
       <StationView stationData={stationData} district={district} />
-      <div className="row">
-        <div className="col-sm-12 ">
-          <div className="live-weather-sec">
-            <div className="d-flex flex-column flex-md-row justify-content-md-between mb-2">
-              <h6 className="section-heading">Live Weather</h6>
-              <div className="d-flex align-items-center">
+      <div className='row'>
+        <div className='col-sm-12 '>
+          <div className='live-weather-sec'>
+            <div className='d-flex flex-column flex-md-row justify-content-md-between mb-2'>
+              <h6 className='section-heading'>Live Weather</h6>
+              <div className='d-flex align-items-center'>
                 <span> Showing Data of: {stationData.lastRefreshTime}</span>
                 <span
-                  className="mx-md-3 me-2 detail-view-btn"
+                  className='mx-md-3 me-2 detail-view-btn'
                   onClick={navigetDetailsPage}
                 >
                   Detailed View
                 </span>
 
                 <span
-                  className="side-heading"
+                  className='side-heading'
                   onClick={() => getStationSummary(stationId, profileId)}
                 >
-                  <TfiReload className="ms-2" />
+                  <TfiReload className='ms-2' />
                 </span>
               </div>
             </div>
-            <div className="row">
+            <div className='row'>
               {stationPanelList.map((sensor) => (
-                <div className="col-sm-6 col-md-3" key={sensor.userSensorName}>
-                  <div className="weather-report">
-                    <div className="d-flex justify-content-between">
+                <div className='col-sm-6 col-md-3' key={sensor.userSensorName}>
+                  <div className='weather-report'>
+                    <div className='d-flex justify-content-between'>
                       <span>{sensor.sensorName}</span>
                       {getSensorIcon(sensor.sensorName) ? (
                         <img
                           src={getSensorIcon(sensor.sensorName)}
-                          alt="heat-icon"
-                          className="reportIcon"
+                          alt='heat-icon'
+                          className='reportIcon'
                         />
                       ) : (
                         <span>{sensor.unitIcon}</span>
                       )}
                     </div>
-                    <div className="text-center">
-                      <span className="report-val">
+                    <div className='text-center'>
+                      <span className='report-val'>
                         {sensor.currentValue ?? 0}{" "}
                         <sup>{sensor.unitSymbol}</sup>
                       </span>
                     </div>
-                    <div className="full-report-values">
-                      <div className="d-flex justify-content-between">
-                        <span className="property">Min</span>
-                        <span className="value">
+                    <div className='full-report-values'>
+                      <div className='d-flex justify-content-between'>
+                        <span className='property'>Min</span>
+                        <span className='value'>
                           {sensor.min} <sup>{sensor.unitSymbol}</sup>
                         </span>
                       </div>
-                      <div className="d-flex justify-content-between">
-                        <span className="property">Max</span>
-                        <span className="value">
+                      <div className='d-flex justify-content-between'>
+                        <span className='property'>Max</span>
+                        <span className='value'>
                           {" "}
                           {sensor.max} <sup>{sensor.unitSymbol}</sup>
                         </span>
                       </div>
-                      <div className="d-flex justify-content-between">
-                        <span className="property">Avg</span>
-                        <span className="value">
+                      <div className='d-flex justify-content-between'>
+                        <span className='property'>Avg</span>
+                        <span className='value'>
                           {sensor.avg} <sup>{sensor.unitSymbol}</sup>
                         </span>
                       </div>
                       <span
                         onClick={navigetDetailsPage}
-                        className="view-graph-btn"
+                        className='view-graph-btn'
                       >
                         Detailed View
                       </span>
@@ -167,16 +167,16 @@ const StationSummary = () => {
           </div>
         </div>
 
-        <div className="col-sm-12">
-          <div className="live-weather-sec">
+        <div className='col-sm-12'>
+          <div className='live-weather-sec'>
             <PipeLineGraph defaultParamerts={Object.keys(stationEnvDataList)} />
           </div>
         </div>
       </div>
     </section>
   ) : (
-    <div className="h-75 d-flex justify-content-center align-items-center">
-      <h3 className="text-danger">Station Data Not Found</h3>
+    <div className='h-75 d-flex justify-content-center align-items-center'>
+      <h3 className='text-danger'>Station Data Not Found</h3>
     </div>
   );
 };

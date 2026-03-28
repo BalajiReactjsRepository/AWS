@@ -57,6 +57,8 @@ const StationOverView = (props) => {
   //   }
   // };
 
+  // console.log(stations, "fardin");
+
   return (
     <>
       {stations.map((station, i) => {
@@ -74,38 +76,43 @@ const StationOverView = (props) => {
                 className={`stationName ${isActiveTab}`}
                 style={{ minWidth: activeEffect ? "auto" : "20rem" }}
               >
-                {station.stationName} - {station.stationId}
+                {station.stationName} -
+                <span title={station.stationId}>
+                  {station.stationId?.length > 6
+                    ? `${station.stationId.slice(0, 6)}...`
+                    : station.stationId}
+                </span>
               </span>
-              <span className="profileName">
+              <span className='profileName'>
                 {station.profileName} , {station.district}
               </span>
-              <div className="tool-status-container">
+              <div className='tool-status-container'>
                 <FaCircle
-                  size="8"
-                  className="me-1"
+                  size='8'
+                  className='me-1'
                   fill={station.stationStatus === "Yes" ? "#00FF09" : "#FF0000"}
                 />
                 {station.stationStatus === "Yes" ? "Online" : "Offline"}
               </div>
-              <div className="report-data d-flex justify-content-between my-2">
+              <div className='report-data d-flex justify-content-between my-2'>
                 {/* sensorName: 'Air Temperature', sensorValue: '--', sensorUnit: 'N/A', sensorIcon: '' */}
                 {station?.stationEnvDataList?.map((sensor) => (
                   <div
                     key={sensor.sensorName}
-                    className="d-flex flex-column align-items-center mx-1"
+                    className='d-flex flex-column align-items-center mx-1'
                   >
-                    <span className="instrument-icon">
+                    <span className='instrument-icon'>
                       {sensor.sensorIcon || "--"}
                     </span>
 
-                    <span className="d-block instrument-icon-val">
+                    <span className='d-block instrument-icon-val'>
                       {`${sensor?.sensorValue}  ${sensor?.sensorUnit}`}
                     </span>
                   </div>
                 ))}
               </div>
               {viewSummary && (
-                <span className="link-item_btn">View Station Summary</span>
+                <span className='link-item_btn'>View Station Summary</span>
               )}
             </div>
             {i !== stations.length - 1 && <hr style={{ margin: "0px" }} />}

@@ -74,10 +74,10 @@ const ReportFiler = ({ dataReportType, callReportApi }) => {
   };
 
   return (
-    <div className="mb-4">
-      <div className="row ">
+    <div className='mb-4'>
+      <div className='row '>
         {dataReportType === "completeReport" && (
-          <div className="col-12 col-md-3 mb-2">
+          <div className='col-12 col-md-3 mb-2'>
             <ReportTypeDrop
               reportType={reportType}
               setReportType={setReportType}
@@ -85,30 +85,31 @@ const ReportFiler = ({ dataReportType, callReportApi }) => {
           </div>
         )}
         {dataReportType === "qualityReport" && (
-          <div className="col-12 col-md-3 mb-2">
+          <div className='col-12 col-md-3 mb-2'>
             <IssueTypeDrop issueType={issueType} setIssueType={setIssueType} />
           </div>
         )}
-        <div className="col-12 col-md-3 mb-2">
+        <div className='col-12 col-md-3 mb-2'>
           <ProfileDropdown
             selectedProfile={selectedProfile}
             onChangeProfile={onChangeProfile}
           />
         </div>
 
-        <div className="col-12 col-md-3 mb-2">
+        <div className='col-12 col-md-3 mb-2'>
           <StationDropdown
             selectedStations={selectedStations}
             setSelectedStations={setSelectedStations}
             profileId={selectedProfile}
             stationError={stationError}
+            // Block={Block}
             setStationError={setStationError}
             reportsType={"datareport"}
           />
         </div>
 
-        <div className="col-12 col-md-2 mb-2">
-          <label className="label-primary" htmlFor="dateSelect">
+        <div className='col-12 col-md-2 mb-2'>
+          <label className='label-primary' htmlFor='dateSelect'>
             Select Date *
           </label>
           <SelectDateRange
@@ -119,19 +120,19 @@ const ReportFiler = ({ dataReportType, callReportApi }) => {
         </div>
 
         {selectDateType === "custom" && (
-          <div className="col-12 col-md-3 mb-2">
-            <label className="label-primary" htmlFor="dateSelect">
+          <div className='col-12 col-md-3 mb-2'>
+            <label className='label-primary' htmlFor='dateSelect'>
               Date Range*
             </label>
             <DateRangeComponent setDateRange={setDateRange} />
           </div>
         )}
-        <div className="col-12 col-md-3 ms-auto">
-          <label className="label-primary d-none" htmlFor="dateSelect">
+        <div className='col-12 col-md-3 ms-auto'>
+          <label className='label-primary d-none' htmlFor='dateSelect'>
             action
           </label>
           <br />
-          <button className="btn btn-primary" onClick={handleApicall}>
+          <button className='btn btn-primary' onClick={handleApicall}>
             Generate Report
           </button>
         </div>

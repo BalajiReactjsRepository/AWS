@@ -10,17 +10,16 @@ import Login from "../Authentication/Login ";
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-
+      <Route path='/login' element={<Login />} />
       {/* Protected Section */}
-      <Route path="/" element={<ProtectedRoute />}>
+      <Route path='/' element={<ProtectedRoute />}>
         {UserRoutes} {/*  ← imported user routes */}
         {AdminRoutes} {/* ← imported admin routes */}
         {/* Catch-all for logged-in users */}
-        <Route path="*" element={<Navigate to="/not-found" />} />
+        <Route path='*' element={<Navigate to='/not-found' />} />
       </Route>
 
-      <Route path="/not-found" element={<NotFoundPage />} />
+      <Route path='/not-found' element={<NotFoundPage />} />
     </Routes>
   );
 }

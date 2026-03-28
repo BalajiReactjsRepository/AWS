@@ -3,7 +3,7 @@ import { getAccessToken, clearTokens } from "./tokenService";
 import { refreshAccessToken } from "./authService";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_STAGE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   timeout: 15000, // ⏱ Prevent hanging requests
 });
 

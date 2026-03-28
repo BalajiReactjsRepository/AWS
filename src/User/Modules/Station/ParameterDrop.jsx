@@ -6,9 +6,9 @@ const ParameterDropdown = ({ highlighteds, setHighlighteds, parameters }) => {
 
   // Custom Option with Checkboxes
   const CustomOption = ({ data, isSelected, innerRef, innerProps }) => (
-    <div ref={innerRef} {...innerProps} className="custom-option ms-1">
-      <input id={data?.label} type="checkbox" checked={isSelected} readOnly />
-      <label className="ms-2">{data?.label}</label>
+    <div ref={innerRef} {...innerProps} className='custom-option ms-1'>
+      <input id={data?.label} type='checkbox' checked={isSelected} readOnly />
+      <label className='ms-2'>{data?.label}</label>
     </div>
   );
 
@@ -19,21 +19,21 @@ const ParameterDropdown = ({ highlighteds, setHighlighteds, parameters }) => {
       >
         Select:
       </span>
-      <div className="slect-drop-container">
+      <div className='slect-drop-container'>
         <Select
-          id="stationSelect"
+          id='stationSelect'
           options={options}
           value={options.filter((option) =>
-            highlighteds.includes(option.value)
+            highlighteds.includes(option.value),
           )}
           onChange={(selectedOptions) =>
             setHighlighteds(
-              selectedOptions ? selectedOptions.map((opt) => opt.value) : []
+              selectedOptions ? selectedOptions.map((opt) => opt.value) : [],
             )
           }
           isMulti
           isSearchable
-          placeholder="select parameter"
+          placeholder='select parameter'
           components={{ Option: CustomOption }}
           closeMenuOnSelect={false}
           hideSelectedOptions={false}

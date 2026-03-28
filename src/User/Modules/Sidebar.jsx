@@ -76,7 +76,7 @@ const Sidebar = ({ toggleSidebar, showSidebar }) => {
   };
 
   const [ProfileDetailsList, setProfileDetailsList] = useState(
-    profileDetailsList || []
+    profileDetailsList || [],
   );
 
   const getSearchStations = () => {
@@ -152,35 +152,35 @@ const Sidebar = ({ toggleSidebar, showSidebar }) => {
           !isSearch && isOpen ? "active-profile-view" : ""
         }`}
       >
-        <button onClick={handleProfileClick} className="customDropdown">
-          <div className="customDropdown-continer">
+        <button onClick={handleProfileClick} className='customDropdown'>
+          <div className='customDropdown-continer'>
             <img
               src={profileIcon || locationIcon}
-              alt="location"
-              className="nav-icons"
+              alt='location'
+              className='nav-icons'
             />
-            <p className="w-75 text-start mb-0" style={{ color: profileColor }}>
+            <p className='w-75 text-start mb-0' style={{ color: profileColor }}>
               {profileName}
             </p>
             <p
-              className="profile-count ms-auto ms-1 mb-0"
+              className='profile-count ms-auto ms-1 mb-0'
               style={{ background: profileColor || "red" }}
             >
               {stationCount > 99 ? "99+" : stationCount}
             </p>
           </div>
           {isOpen ? (
-            <MdKeyboardArrowUp className="d-block" size={18} />
+            <MdKeyboardArrowUp className='d-block' size={18} />
           ) : (
-            <MdOutlineKeyboardArrowDown className="d-block" size={18} />
+            <MdOutlineKeyboardArrowDown className='d-block' size={18} />
           )}
         </button>
 
         {isOpen && (
-          <div className="subDropdown mt-2 p-2">
+          <div className='subDropdown mt-2 p-2'>
             {loading ? (
-              <div className="text-center">
-                <ThreeDot color="#f58142" size="small" />
+              <div className='text-center'>
+                <ThreeDot color='#f58142' size='small' />
               </div>
             ) : stationsList.length > 0 ? (
               <StationOverView
@@ -189,8 +189,8 @@ const Sidebar = ({ toggleSidebar, showSidebar }) => {
                 activeEffect={true}
               />
             ) : (
-              <div className="text-center">
-                <span className="text-danger">No Data found</span>
+              <div className='text-center'>
+                <span className='text-danger'>No Data found</span>
               </div>
             )}
           </div>
@@ -211,21 +211,21 @@ const Sidebar = ({ toggleSidebar, showSidebar }) => {
 
   return (
     <>
-      <div className="logo text-center">
-        <Link to="/">
-          <img src={sidebarLogo} alt="logo" className="nav-logo" />
+      <div className='logo text-center'>
+        <Link to='/'>
+          <img src={sidebarLogo} alt='logo' className='nav-logo' />
         </Link>
       </div>
-      <div className="search-bar">
+      <div className='search-bar'>
         <input
-          id="search"
-          type="text"
+          id='search'
+          type='text'
           value={searchText}
           onChange={onChangeSearchText}
-          placeholder="Search Here..."
-          className="searchBar"
+          placeholder='Search Here...'
+          className='searchBar'
         />
-        <span className="verticalLine"></span>
+        <span className='verticalLine'></span>
         <AiOutlineSearch
           onClick={() => {
             if (searchText.length > 0) {
@@ -240,9 +240,9 @@ const Sidebar = ({ toggleSidebar, showSidebar }) => {
 
       {showSearchResult ? (
         <>
-          <div className="d-flex justify-content-between align-items-center">
+          <div className='d-flex justify-content-between align-items-center'>
             Search Results
-            <span className="cors-btn" onClick={onCloseSearchResult}>
+            <span className='cors-btn' onClick={onCloseSearchResult}>
               x
             </span>
           </div>
@@ -251,24 +251,24 @@ const Sidebar = ({ toggleSidebar, showSidebar }) => {
             className={`subDropdown mt-2 p-1 ${loading ? "text-center" : ""}`}
           >
             {loading ? (
-              <div className="text-center">
-                <ThreeDot color="#f58142" size="small" />
+              <div className='text-center'>
+                <ThreeDot color='#f58142' size='small' />
               </div>
             ) : searchResult.length > 0 ? (
-              <ul className="nav-items search-Nav-Items">
+              <ul className='nav-items search-Nav-Items'>
                 {groupByProfileName(searchResult).map((each) =>
-                  renderDropdownItem(each, true)
+                  renderDropdownItem(each, true),
                 )}
               </ul>
             ) : (
-              <div className="text-center">
-                <span className="text-danger">No Data found</span>
+              <div className='text-center'>
+                <span className='text-danger'>No Data found</span>
               </div>
             )}
           </div>
         </>
       ) : (
-        <ul className="nav-items">
+        <ul className='nav-items'>
           {ProfileDetailsList.map((each) => renderDropdownItem(each))}
         </ul>
       )}

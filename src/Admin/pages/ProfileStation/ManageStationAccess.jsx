@@ -137,8 +137,8 @@ const ManageStationAccess = () => {
     profileName: (text, record) => (
       <span
         style={{
-          color: "#0084FF",
-          textDecoration: "underline",
+          // color: "#0084FF",
+          // textDecoration: "underline",
           cursor: "pointer",
         }}
         onClick={() => handleProfileClick(record._id)}

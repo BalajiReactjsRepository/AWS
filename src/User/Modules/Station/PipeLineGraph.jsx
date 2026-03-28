@@ -35,11 +35,11 @@ const MultiLineChart = ({ defaultParamerts }) => {
   const [weatherReport, setWeatherReport] = useState([]);
   const fullChartData = useMemo(
     () => groupWeatherData(weatherReport),
-    [weatherReport]
+    [weatherReport],
   );
   const [startIndex, setStartIndex] = useState(0);
   const [windowSize, setWindowSize] = useState(1000);
-  const [highlighteds, setHighlighteds] = useState(defaultParamerts);
+  const [highlighteds, setHighlighteds] = useState([]);
   const [zoomFactor, setZoomFactor] = useState(10);
 
   const location = useLocation();
@@ -57,7 +57,9 @@ const MultiLineChart = ({ defaultParamerts }) => {
 
       apiCaller({
         apiCall: () => api.post(url, formData),
-        onSuccess: (result) => setWeatherReport(result ?? []),
+        onSuccess: (result) => {
+          setWeatherReport(result ?? []);
+        },
       });
     };
 
@@ -109,8 +111,23 @@ const MultiLineChart = ({ defaultParamerts }) => {
   // --- Memoized sensor names ---
   const sensorNames = useMemo(
     () => [...new Set(weatherReport?.map((each) => each.sensorName))],
-    [weatherReport]
+    [weatherReport],
   );
+
+   useEffect(() => {
+     if (
+       sensorNames.length > 0 &&
+       defaultParamerts?.length > 0 &&
+       highlighteds.length === 0
+     ) {
+       const selectedSensors = defaultParamerts
+         .map((index) => sensorNames[index])
+         .filter(Boolean); 
+
+       setHighlighteds(selectedSensors);
+     }
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [sensorNames, defaultParamerts]);
 
   // --- Map sensor names to colors ---
   const sensorColors = useMemo(() => {
@@ -137,21 +154,21 @@ const MultiLineChart = ({ defaultParamerts }) => {
     setHighlighteds((prev) =>
       prev.includes(sensorName)
         ? prev.filter((name) => name !== sensorName)
-        : [...prev, sensorName]
+        : [...prev, sensorName],
     );
   };
 
   return (
     <>
-      <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
-        <h6 className="section-heading">Weather Streaming</h6>
-        <div className="d-flex align-items-center">
+      <div className='d-flex flex-column flex-md-row justify-content-md-between align-items-md-center'>
+        <h6 className='section-heading'>Weather Streaming</h6>
+        <div className='d-flex align-items-center'>
           <ParameterDropdown
             parameters={Object.keys(sensorColors)}
             setHighlighteds={setHighlighteds}
             highlighteds={highlighteds}
           />
-          <button onClick={() => setHighlighteds([])} className="btn">
+          <button onClick={() => setHighlighteds([])} className='btn'>
             <TfiReload />
           </button>
         </div>
@@ -176,15 +193,15 @@ const MultiLineChart = ({ defaultParamerts }) => {
               data={chartData}
               margin={{ top: 20, right: 20, left: 0, bottom: 10 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+              <CartesianGrid strokeDasharray='3 3' stroke='#ddd' />
               <XAxis
-                dataKey="datetime"
+                dataKey='datetime'
                 tick={{ fontSize: 10, angle: -45, dy: 10 }}
                 interval={0}
-                stroke="#555"
+                stroke='#555'
                 tickFormatter={(value) => dayjs(value).format("HH:mm")}
               />
-              <YAxis stroke="#555" />
+              <YAxis stroke='#555' />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "rgba(255, 255, 255, 0.9)",
@@ -200,7 +217,7 @@ const MultiLineChart = ({ defaultParamerts }) => {
                 }
               />
               <Legend
-                align="left"
+                align='left'
                 wrapperStyle={{
                   paddingBottom: 5,
                   cursor: "pointer",
@@ -214,7 +231,7 @@ const MultiLineChart = ({ defaultParamerts }) => {
               {getActiveSensorLines().map((sensorName) => (
                 <Line
                   key={sensorName.replace(/\s+/g, "_")}
-                  type="monotone"
+                  type='monotone'
                   dataKey={sensorName}
                   stroke={
                     highlighteds.includes(sensorName) ||
