@@ -14,6 +14,10 @@
   font-size: 0.8rem;
   font-weight: 500;
   display: block;
+  width: 100%; /* occupy available width */
+  white-space: nowrap; /* prevent line break */
+  overflow: hidden; /* hide extra text */
+  text-overflow: ellipsis; /* show ... */
 }
 span.profileName {
   font-size: 0.7rem;

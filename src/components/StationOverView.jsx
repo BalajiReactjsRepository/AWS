@@ -77,11 +77,7 @@ const StationOverView = (props) => {
                 style={{ minWidth: activeEffect ? "auto" : "20rem" }}
               >
                 {station.stationName} -
-                <span title={station.stationId}>
-                  {station.stationId?.length > 6
-                    ? `${station.stationId.slice(0, 6)}...`
-                    : station.stationId}
-                </span>
+                <span title={station.stationId}>{station.stationId}</span>
               </span>
               <span className='profileName'>
                 {station.profileName} , {station.district}

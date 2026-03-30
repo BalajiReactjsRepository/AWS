@@ -3,7 +3,7 @@ import { getAccessToken, clearTokens } from "./tokenService";
 import { refreshAccessToken } from "./authService";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: process.env.REACT_APP_STAGE_URL,
   timeout: 15000, // ⏱ Prevent hanging requests
 });
 
@@ -28,7 +28,6 @@ api.interceptors.response.use(
   (response) => response,
 
   async (error) => {
-    console.log(error);
     const originalRequest = error.config;
 
     // ❌ If refresh token itself fails → logout

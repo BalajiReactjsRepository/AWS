@@ -4,7 +4,7 @@ import { clearTokens, getRefreshToken, setTokens } from "./tokenService";
 import { apiCaller } from "./apihelper";
 import api from "./axiosConfig";
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = process.env.REACT_APP_STAGE_URL;
 
 export const refreshAccessToken = async () => {
   try {

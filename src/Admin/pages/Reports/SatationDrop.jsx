@@ -53,7 +53,6 @@ const StationDropdown = (props) => {
 
         const res = await api.post(url, formdata);
         const { data } = res;
-        console.log(data, "check");
         ErrorHandler.onLoadingClose();
 
         if (data.statusCode === 200) {
@@ -100,6 +99,13 @@ const StationDropdown = (props) => {
     );
   };
 
+  const modifiedStationData = profileStations.map((each) => {
+    if (each.value === "0") {
+      return { ...each, label: "All" };
+    }
+    return each;
+  });
+
   const handleSelectChange = (selectedOptions) => {
     setStationError(false);
 
@@ -117,7 +123,7 @@ const StationDropdown = (props) => {
 
     if (hasSelectAll && !isSelectAllPreviouslySelected) {
       // "Select All" just got selected → select everything
-      setSelectedStations(profileStations);
+      setSelectedStations(modifiedStationData);
     } else if (!hasSelectAll && isSelectAllPreviouslySelected) {
       // "Select All" just got unselected → clear everything
       setSelectedStations([]);
@@ -128,8 +134,6 @@ const StationDropdown = (props) => {
     }
   };
 
-  console.log(profileStations, "profileStations");
-
   return (
     <div className='me-3'>
       <label className='label-primary' htmlFor='stationSelect'>
@@ -138,7 +142,7 @@ const StationDropdown = (props) => {
       <div className='slect-drop-container'>
         <Select
           id='stationSelect'
-          options={profileStations}
+          options={modifiedStationData}
           value={selectedStations}
           onChange={handleSelectChange}
           isMulti

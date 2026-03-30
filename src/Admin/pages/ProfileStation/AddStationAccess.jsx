@@ -61,20 +61,58 @@ const AddStationAccess = () => {
     setUserId(value);
   };
 
+  // const handleStationAccess = (stationId, checked) => {
+  //   if (checked) {
+  //     setAccessedStations((prev) => [...prev, stationId]);
+  //   } else {
+  //     setAccessedStations((prev) => prev.filter((id) => id !== stationId));
+  //   }
+  // };
+
   const handleStationAccess = (stationId, checked) => {
+    console.log(stationId);
+    // 👉 SELECT ALL
+    if (stationId === "0") {
+      if (checked) {
+        const allIds = data.filter((s) => s._id !== "0").map((s) => s._id);
+        setAccessedStations(["0", ...allIds]);
+      } else {
+        setAccessedStations([]);
+      }
+      return;
+    }
+
+    // 👉 NORMAL SELECT
     if (checked) {
-      setAccessedStations((prev) => [...prev, stationId]);
+      setAccessedStations((prev) => {
+        const updated = [...prev.filter((id) => id !== "0"), stationId];
+
+        const totalStations = data.filter((s) => s._id !== "0").length;
+
+        // if all selected → auto select "All"
+        if (updated.length === totalStations) {
+          return ["0", ...updated];
+        }
+
+        return updated;
+      });
     } else {
-      setAccessedStations((prev) => prev.filter((id) => id !== stationId));
+      // remove station + "All"
+      setAccessedStations((prev) =>
+        prev.filter((id) => id !== stationId && id !== "0"),
+      );
     }
   };
 
   const handleStationProfile = async () => {
     const url = `/Admin/ShowStationAccess/CreateStationAccess`;
+    const stationIds = accessedStations.includes("0")
+      ? data.filter((s) => s._id !== "0").map((s) => s._id)
+      : accessedStations;
     const body = {
       UserId: userId,
       ProfileId: profileId,
-      StationId: [...accessedStations],
+      StationId: stationIds,
     };
 
     apiCaller({
@@ -87,6 +125,7 @@ const AddStationAccess = () => {
     s.stationName?.toLowerCase().includes(debouncedValue.toLowerCase()),
   );
 
+  console.log(accessedStations, "balaji");
   return (
     <>
       <div className='d-flex'>
@@ -151,16 +190,37 @@ const AddStationAccess = () => {
               <p className='mb-0 station-info'>{station.district}</p>
               <p className='mb-0 station-info'>{station.state}</p>
             </div>
-            <Form.Group
+            {/* <Form.Group
               className='checkStation'
               type='checkbox'
               checked={accessedStations.includes(station._id)}
+              checked={
+                station._id === "0"
+                  ? accessedStations.includes("0")
+                  : accessedStations.includes("0") ||
+                    accessedStations.includes(station._id)
+              }
               id={station._id}
               onChange={(e) =>
                 handleStationAccess(station._id, e.target.checked)
               }
             >
               <Form.Check type='checkbox' className='custom-form-check-input' />
+            </Form.Group> */}
+            <Form.Group className='checkStation'>
+              <Form.Check
+                type='checkbox'
+                className='custom-form-check-input'
+                checked={
+                  station._id === "0"
+                    ? accessedStations.includes("0")
+                    : accessedStations.includes("0") ||
+                      accessedStations.includes(station._id)
+                }
+                onChange={(e) =>
+                  handleStationAccess(station._id, e.target.checked)
+                }
+              />
             </Form.Group>
           </div>
         ))}
@@ -172,6 +232,7 @@ const AddStationAccess = () => {
             className='position-relative z-2'
             type='submit'
             onClick={handleStationProfile}
+            disabled={accessedStations?.length === 0}
           >
             Save
           </Button>
