@@ -65,17 +65,17 @@ export const UserRoutes = (
   >
     <Route index element={<Home />} />
 
-    <Route path="/station">
-      <Route path="summary" element={<StationSummary />} />
-      <Route path="details" element={<StationDetails />} />
+    <Route path='/station'>
+      <Route path='summary' element={<StationSummary />} />
+      <Route path='details' element={<StationDetails />} />
     </Route>
 
-    <Route path="/reports" element={<Reports />} />
+    <Route path='/reports' element={<Reports />} />
 
-    <Route path="/profile" element={<ProfileLayout />}>
+    <Route path='/profile' element={<ProfileLayout />}>
       <Route index element={<Profile />} />
-      <Route path="faq-manuals" element={<FaqManulas />} />
-      <Route path="appearance" element={<Appereance />} />
+      <Route path='faq-manuals' element={<FaqManulas />} />
+      <Route path='appearance' element={<Appereance />} />
     </Route>
   </Route>
 );

@@ -77,15 +77,12 @@ const StationDetails = () => {
       if (selectDateType === "custom") {
         formData.append("fromDate", dateFormatter(fromDate));
         formData.append("toDate", dateFormatter(toDate));
-        console.log(dateFormatter(fromDate), dateFormatter(toDate), "1st");
       } else if (selectDateType === "last 7 days") {
         formData.append("fromDate", last7Days);
         formData.append("toDate", today);
-        console.log(last7Days, today, "q11");
       } else if (selectDateType === "last 30 days") {
         formData.append("fromDate", last30Days);
         formData.append("toDate", today);
-        console.log(last30Days, today, "triggering");
       } else {
         formData.append(
           "fromDate",

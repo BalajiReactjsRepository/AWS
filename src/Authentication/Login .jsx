@@ -50,6 +50,7 @@ const Login = () => {
       userImage,
       userName,
       profileDetailsList,
+      accessiblePortals,
     } = userData;
 
     setTokens(token, refreshToken);
@@ -71,9 +72,10 @@ const Login = () => {
         userImage,
         userName,
         profileDetailsList,
-      })
+        accessiblePortals,
+      }),
     );
-    navigate("/admin");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -142,54 +144,54 @@ const Login = () => {
   // };
 
   return (
-    <div className="bg-image">
-      <div className="login-container">
-        <img src={Azistalogo} alt="logo" className="logo-img" />
+    <div className='bg-image'>
+      <div className='login-container'>
+        <img src={Azistalogo} alt='logo' className='logo-img' />
         <p>Weather Web Portal</p>
 
-        <form onSubmit={onSubmitLogin} className="w-100 text-center">
-          <h5 className="my-3">Login</h5>
-          <div className="form-floating w-100 mb-4">
+        <form onSubmit={onSubmitLogin} className='w-100 text-center'>
+          <h5 className='my-3'>Login</h5>
+          <div className='form-floating w-100 mb-4'>
             <input
-              type="text"
-              id="emailAddress"
-              className="form-control login-input"
+              type='text'
+              id='emailAddress'
+              className='form-control login-input'
               minLength={5}
               maxLength={100}
               value={userData.emailAddress}
               onChange={handleOnChange}
-              placeholder="name@example.com"
-              autoComplete="email"
+              placeholder='name@example.com'
+              autoComplete='email'
             />
-            <label htmlFor="emailAddress">Username / Email Address</label>
+            <label htmlFor='emailAddress'>Username / Email Address</label>
           </div>
 
-          <div className="password-cont w-100">
-            <div className="form-floating w-100">
+          <div className='password-cont w-100'>
+            <div className='form-floating w-100'>
               <input
                 type={showPassword ? "text" : "password"}
-                id="password"
+                id='password'
                 minLength={2}
                 maxLength={12}
-                className="form-control login-input"
+                className='form-control login-input'
                 value={userData.password}
                 onChange={handleOnChange}
                 onKeyDown={handleKeyDown}
-                placeholder="Password"
-                autoComplete="off"
+                placeholder='Password'
+                autoComplete='off'
               />
-              <label htmlFor="password">Password</label>
+              <label htmlFor='password'>Password</label>
             </div>
-            <div onClick={togglePasswordVisibility} className="eye-icon">
+            <div onClick={togglePasswordVisibility} className='eye-icon'>
               {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
             </div>
           </div>
 
-          <div className="my-4 w-100">
+          <div className='my-4 w-100'>
             <button
-              type="submit"
+              type='submit'
               style={{ fontWeight: "600", fontSize: "medium" }}
-              className="btn btn-light btn-lg btn-block w-100 btn-outline-primary"
+              className='btn btn-light btn-lg btn-block w-100 btn-outline-primary'
             >
               LOG IN
             </button>
@@ -204,7 +206,7 @@ const Login = () => {
         </form>
 
         {errorMessage && (
-          <p className="text-danger text-center">{errorMessage}</p>
+          <p className='text-danger text-center'>{errorMessage}</p>
         )}
       </div>
     </div>

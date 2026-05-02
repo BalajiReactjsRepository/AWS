@@ -20,14 +20,16 @@ const UserLayout = () => {
     localStorage.getItem(process.env.REACT_APP_ADMIN_KEY),
   );
 
-  const { profileDetailsList = [] } = userData;
+  const { profileDetailsList = [], accessiblePortals = [] } = userData;
 
-  const dropDownMenu = [
-    {
-      key: "admin",
-      label: <span onClick={() => navigate("/admin")}>Admin Protal</span>,
-    },
-  ];
+  const dropDownMenu = accessiblePortals?.includes("ADM")
+    ? [
+        {
+          key: "admin",
+          label: <span onClick={() => navigate("/admin")}>Admin Portal</span>,
+        },
+      ]
+    : [];
 
   useEffect(() => {
     if (!profileDetailsList.length) {
@@ -49,7 +51,7 @@ const UserLayout = () => {
   }, [profileDetailsList]);
 
   return (
-    <div className="webpage">
+    <div className='webpage'>
       <section
         className={
           showSidebar ? "displaySidebar" : "displaySidebar hideSidebar"

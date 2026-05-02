@@ -21,7 +21,7 @@ const onLoading = () => {
 
   const loaderDiv = document.createElement("div");
   ReactDOM.createRoot(loaderDiv).render(
-    <ThreeDot color="#f58142" size="medium" text="" textColor="" />
+    <ThreeDot color='#f58142' size='medium' text='' textColor='' />,
   );
 
   return Swal.fire({

@@ -49,7 +49,7 @@ export const apiCaller = async (args) => {
       return result;
     }
 
-    // ⚠️ API-level error
+    // ⚠️ API-level error (if error response inside data else not required)
     const apiErrorMsg = message || "Something went wrong.";
     if (showError) {
       if (setErrorMessage) setErrorMessage(apiErrorMsg);

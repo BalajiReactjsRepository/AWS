@@ -220,3 +220,6 @@
   overflow-y: scroll;
   scrollbar-width: none;
 }
+.ant-table-content {
+  overflow: auto;
+}

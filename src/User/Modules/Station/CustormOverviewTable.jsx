@@ -23,7 +23,7 @@ const CustomOverviewTable = (props) => {
       "DD-MMM-YYYY",
     );
   };
-  console.log(SelectDate, "llll");
+
   const fromDate = SelectDate?.[0]?.$d;
   const toDate = SelectDate?.[1]?.$d;
 

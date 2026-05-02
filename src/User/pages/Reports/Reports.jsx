@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import dayjs from "dayjs";
 import moment from "moment";
@@ -58,6 +58,8 @@ const Reports = () => {
 
   const handleCustomRangeDate = (date) => setDateRange(date);
   const onChangeProfile = (e) => setSelectedProfile(e);
+
+  const isFirstRender = useRef(true);
 
   const getDistricts = async (profileId) => {
     setDistrict([{ value: "0", label: "All" }]);
@@ -118,9 +120,23 @@ const Reports = () => {
     getDistricts(selectedProfile);
   }, [selectedProfile]);
 
+  // useEffect(() => {
+  //   getDistrictsBlocks(selectedProfile, District);
+  // }, [selectedProfile, District]);
+
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    const hasValidDistrict = District.some((d) => d.value !== "0");
+
+    if (!selectedProfile || !hasValidDistrict) return;
+
     getDistrictsBlocks(selectedProfile, District);
   }, [selectedProfile, District]);
+
   useEffect(() => {
     getMyStations(selectedProfile, District, Block);
   }, [selectedProfile, District, Block]);

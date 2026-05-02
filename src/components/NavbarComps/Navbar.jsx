@@ -92,7 +92,7 @@ const NavbarModule = (props) => {
         </div>
 
         {/* Right Section */}
-        <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           {!pathname.startsWith("/admin") && <UserRightSection />}
           {/* Notifications */}
           {/* <Tooltip title="Notifications">
