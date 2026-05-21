@@ -59,6 +59,8 @@ const StationOverView = (props) => {
 
   // console.log(stations, "fardin");
 
+  console.log(stations, "llll");
+
   return (
     <>
       {stations.map((station, i) => {
@@ -66,6 +68,7 @@ const StationOverView = (props) => {
           activeEffect && station.stationId === activeStationId
             ? "activestation"
             : "";
+
         return (
           <div key={station.stationId}>
             <div

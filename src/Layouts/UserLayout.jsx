@@ -32,7 +32,7 @@ const UserLayout = () => {
     : [];
 
   useEffect(() => {
-    if (!profileDetailsList.length) {
+    if (!profileDetailsList?.length) {
       setIsRjProfile(false);
       setIsKaranataka(false);
       return;

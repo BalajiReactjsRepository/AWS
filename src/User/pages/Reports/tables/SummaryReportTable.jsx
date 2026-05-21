@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef } from "react";
 import { useDownloadExcel } from "react-export-table-to-excel";
 import DownloadReportBtn from "../DownloadReportBtn";
 import { camelToTitle } from "../../../../utils/tableAction";
@@ -49,28 +49,37 @@ const groupHeaders = (headers) => {
 const getValueByPath = (obj, path, fallback = "--") =>
   path.split(".").reduce((acc, key) => acc?.[key] ?? fallback, obj);
 
-const SummaryReportTable = ({ data, fileName }) => {
+const SummaryReportTable = (props) => {
+  const {
+    data,
+    fileName,
+    currentPage,
+    setCurrentPage,
+    rowsPerPage,
+    setRowsPerPage,
+    paginationData,
+  } = props;
+
   const displayTableRef = useRef(null);
   const hiddenTableRef = useRef(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const { totalPages } = paginationData;
 
   const headers = useMemo(
     () => (data.length > 0 ? extractHeaders(data[0]) : []),
-    [data]
+    [data],
   );
 
   const groupedHeaders = useMemo(() => groupHeaders(headers), [headers]);
   const flatHeaderArray = useMemo(
     () => Object.values(groupedHeaders).flat(),
-    [groupedHeaders]
+    [groupedHeaders],
   );
 
-  const totalPages = Math.ceil(data.length / rowsPerPage);
-  const currentData = data.slice(
-    (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
-  );
+  // const totalPages = pagesCount;
+  // const currentData = data.
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: hiddenTableRef.current,
@@ -83,7 +92,7 @@ const SummaryReportTable = ({ data, fileName }) => {
       tableData.map((row, i) => (
         <tr key={i}>
           {flatHeaderArray.map(({ path }) => (
-            <td key={path} className="border px-2 py-1">
+            <td key={path} className='border px-2 py-1'>
               {getValueByPath(row, path, "N/A")}
             </td>
           ))}
@@ -91,7 +100,7 @@ const SummaryReportTable = ({ data, fileName }) => {
       ))
     ) : (
       <tr>
-        <td colSpan={flatHeaderArray.length} className="py-4 text-center">
+        <td colSpan={flatHeaderArray.length} className='py-4 text-center'>
           No data available
         </td>
       </tr>
@@ -174,7 +183,7 @@ const SummaryReportTable = ({ data, fileName }) => {
 
   const renderMultilineHeader = (text) =>
     text.split("\n").map((line, i) => (
-      <div key={i} className="block">
+      <div key={i} className='block'>
         {line}
       </div>
     ));
@@ -193,19 +202,19 @@ const SummaryReportTable = ({ data, fileName }) => {
           firstRowHeaders.push(
             <th
               key={path}
-              scope="col"
-              className="border px-2 py-1 bg-gray-100 whitespace-normal"
+              scope='col'
+              className='border px-2 py-1 bg-gray-100 whitespace-normal'
               rowSpan={2}
             >
               {renderMultilineHeader(camelToTitle(label))}
-            </th>
+            </th>,
           );
         });
       } else {
         firstRowHeaders.push(
           <th
             key={key}
-            scope="col"
+            scope='col'
             className={`border px-2 py-1 bg-gray-100 whitespace-normal ${
               isNested ? "text-center" : ""
             }`}
@@ -213,7 +222,7 @@ const SummaryReportTable = ({ data, fileName }) => {
             rowSpan={isNested ? 1 : 2}
           >
             {renderMultilineHeader(camelToTitle(key))}
-          </th>
+          </th>,
         );
 
         if (isNested) {
@@ -221,11 +230,11 @@ const SummaryReportTable = ({ data, fileName }) => {
             secondRowHeaders.push(
               <th
                 key={path}
-                scope="col"
-                className="border px-2 py-1 bg-gray-100 whitespace-normal"
+                scope='col'
+                className='border px-2 py-1 bg-gray-100 whitespace-normal'
               >
                 {renderMultilineHeader(camelToTitle(label))}
-              </th>
+              </th>,
             );
           });
         }
@@ -241,9 +250,9 @@ const SummaryReportTable = ({ data, fileName }) => {
   };
 
   return (
-    <div className="d-flex flex-column">
-      <div className="d-flex mb-1 justify-content-between align-items-center">
-        <span>Showing {data.length} Records</span>
+    <div className='d-flex flex-column'>
+      <div className='d-flex mb-1 justify-content-between align-items-center'>
+        <span>Showing {data.length} Recordsssssss</span>
         <DownloadReportBtn
           disable={data.length === 0}
           downloadExcel={onDownload}
@@ -251,21 +260,21 @@ const SummaryReportTable = ({ data, fileName }) => {
       </div>
 
       {/* Visible Table */}
-      <div className="summary-table-container">
+      <div className='summary-table-container'>
         <table
           ref={displayTableRef}
-          className="min-w-full border border-gray-300"
+          className='min-w-full border border-gray-300'
           style={{ minWidth: "100%" }}
         >
-          <thead className="reports-header">{renderHeaderRows()}</thead>
-          <tbody>{renderTableBody(currentData)}</tbody>
+          <thead className='reports-header'>{renderHeaderRows()}</thead>
+          <tbody>{renderTableBody(data)}</tbody>
         </table>
       </div>
 
       {/* Hidden Table for Export */}
       {(() => {
         const hasDynamicFields = Object.keys(groupedHeaders).some((key) =>
-          key.startsWith("dynamicFileds.")
+          key.startsWith("dynamicFileds."),
         );
 
         return (
@@ -280,7 +289,7 @@ const SummaryReportTable = ({ data, fileName }) => {
                   <tr>
                     <td
                       colSpan={flatHeaderArray.length}
-                      className="py-4 text-center"
+                      className='py-4 text-center'
                     ></td>
                   </tr>
                 )}

@@ -23,7 +23,7 @@ const DistrictDropDown = ({
 
       const { data } = await api.post(
         `/Report/Report/GetStationDistricts`,
-        formdata
+        formdata,
       );
 
       ErrorHandler.onLoadingClose();
@@ -58,7 +58,7 @@ const DistrictDropDown = ({
 
     const hasSelectAll = selectedOptions.some((opt) => opt.value === "0");
     const isSelectAllPreviouslySelected = District.some(
-      (opt) => opt.value === "0"
+      (opt) => opt.value === "0",
     );
 
     if (hasSelectAll && !isSelectAllPreviouslySelected) {
@@ -80,15 +80,15 @@ const DistrictDropDown = ({
       <div
         ref={innerRef}
         {...innerProps}
-        className="custom-option ms-1 d-flex align-items-center"
+        className='custom-option ms-1 d-flex align-items-center'
       >
         <input
-          type="checkbox"
+          type='checkbox'
           checked={isSelected}
           onChange={() => null}
-          className="form-check-input me-2"
+          className='form-check-input me-2'
         />
-        <label className="m-0">{data.label}</label>
+        <label className='m-0'>{data.label}</label>
       </div>
     );
   };
@@ -102,18 +102,18 @@ const DistrictDropDown = ({
 
   return (
     <div>
-      <label htmlFor="District" className="label-primary">
+      <label htmlFor='District' className='label-primary'>
         Select Districts
       </label>
-      <div className="slect-drop-container">
+      <div className='slect-drop-container'>
         <Select
-          id="District"
+          id='District'
           options={options}
           value={District}
           onChange={handleSelectChange}
           isMulti
           isSearchable
-          placeholder="Select districts..."
+          placeholder='Select districts...'
           closeMenuOnSelect={false}
           hideSelectedOptions={false}
           components={{ Option: CustomOption, MultiValue }}
@@ -137,7 +137,7 @@ const DistrictDropDown = ({
         />
       </div>
       {districtError && (
-        <span className="text-danger">*Please select a district</span>
+        <span className='text-danger'>*Please select a district</span>
       )}
     </div>
   );

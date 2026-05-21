@@ -230,8 +230,6 @@ const StationDetails = () => {
       </div>
     );
 
-  console.log(dataDetialDate, "dataDetialDate");
-
   return (
     <div className='mainContInfo mb-5'>
       <StationView stationData={stationData} district={district} />
@@ -265,6 +263,7 @@ const StationDetails = () => {
               SelectDate={SelectDate}
               value='tabularData'
               setDataDetialDate={setDataDetialDate}
+              view={reqView}
             />
           </div>
         </div>

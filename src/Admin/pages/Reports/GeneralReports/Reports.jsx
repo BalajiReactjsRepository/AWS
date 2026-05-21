@@ -47,8 +47,10 @@ const Reports = () => {
 
   const [districtError, setDistrictError] = useState("");
   const [Block, setBlock] = useState("0");
-
   const [blockError, setBlockError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [paginationData, setPaginationData] = useState({});
 
   const onChangeProfile = (e) => setSelectedProfile(e);
 
@@ -80,15 +82,23 @@ const Reports = () => {
       formdata.append("fromDate", formDate);
       formdata.append("toDate", toDate);
       formdata.append("District", disctricts);
+      formdata.append("pageNumber", currentPage);
+      formdata.append("pageSize", rowsPerPage);
       formdata.append("Block", Block);
 
       const res = await api.post(`/Report/Report/DataReport`, formdata);
 
-      const { data } = res;
+      const responseData = res?.data;
 
-      if (data.statusCode === 200) {
+      if (responseData?.statusCode === 200) {
+        const result = responseData?.result || {};
+
+        const reportData = result?.data || [];
+        const pagination = result?.pagination || {};
+        setReportsData(reportData ?? []);
+        setPaginationData(pagination ?? {});
         setLoading(false);
-        setReportsData(data.result);
+        // setReportsData(data.result);
         const profile = profileDetailsList.find(
           (p) => p._id === selectedProfile,
         );
@@ -102,7 +112,9 @@ const Reports = () => {
         setFileName(filename);
       } else {
         setLoading(false);
-        ErrorHandler.onError({ message: data.message || "Unknown error" });
+        ErrorHandler.onError({
+          message: responseData?.message || "Unknown error",
+        });
       }
     } catch (error) {
       setLoading(false);
@@ -110,6 +122,14 @@ const Reports = () => {
       ErrorHandler.onError(error);
     }
   };
+
+  useEffect(() => {
+    if (reportType !== "gn") return;
+
+    if (!reportsData.length && !showNodata) return;
+
+    fetchGeneralReport();
+  }, [currentPage, rowsPerPage]);
 
   const fetchSummaryReport = async (subPath, formdata) => {
     try {
@@ -258,7 +278,10 @@ const Reports = () => {
         })}
 
         <div className='col-12 col-md-2 mt-3'>
-          <button className='btn btn-primary' onClick={handleApicall}>
+          <button
+            className='btn btn-primary text-nowrap'
+            onClick={handleApicall}
+          >
             Generate Report
           </button>
         </div>
@@ -284,6 +307,12 @@ const Reports = () => {
               data={reportsData}
               fileName={fileName}
               dateRange={dateRange}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              rowsPerPage={rowsPerPage}
+              setRowsPerPage={setRowsPerPage}
+              paginationData={paginationData}
+              selectedStations={selectedStations}
             />
           )
         ) : (

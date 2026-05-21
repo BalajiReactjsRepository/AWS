@@ -12,7 +12,15 @@ const SelectDateRange = (props) => {
     selectDateType,
     value,
     setDataDetialDate,
+    view,
   } = props;
+
+  const options = [
+    "Today",
+    "Yesterday",
+    "Custom",
+    ...(view === "tabularView" ? ["Last 7 days", "Last 30 days"] : []),
+  ];
 
   const [dateRange, setDateRange] = useState([
     dayjs(), // Current date as a dayjs object
@@ -45,13 +53,11 @@ const SelectDateRange = (props) => {
           onChange={handleDateChange}
           value={selectDateType}
         >
-          {["Today", "Yesterday", "Last 7 days", "Last 30 days", "Custom"].map(
-            (label) => (
-              <option key={label} value={label.toLocaleLowerCase()}>
-                {label}
-              </option>
-            ),
-          )}
+          {options.map((label) => (
+            <option key={label} value={label.toLocaleLowerCase()}>
+              {label}
+            </option>
+          ))}
         </select>
       </div>
       {selectDateType === "custom" && (

@@ -55,6 +55,9 @@ const Reports = () => {
   const [Block, setBlock] = useState("0");
   const [districtBlocks, setDistrictBlocks] = useState([]);
   const [blockError, setBlockError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [paginationData, setPaginationData] = useState({});
 
   const handleCustomRangeDate = (date) => setDateRange(date);
   const onChangeProfile = (e) => setSelectedProfile(e);
@@ -168,13 +171,17 @@ const Reports = () => {
     formdata.append("fromDate", formDate);
     formdata.append("toDate", toDate);
     formdata.append("District", disctricts);
+    formdata.append("pageNumber", currentPage);
+    formdata.append("pageSize", rowsPerPage);
     formdata.append("Block", Block);
 
     apiCaller({
       setLoading,
       apiCall: () => api.post("/Report/Report/DataReport", formdata),
       onSuccess: (result) => {
-        setReportsData(result ?? []);
+        const { data, pagination } = result || {};
+        setReportsData(data ?? []);
+        setPaginationData(pagination ?? {});
         const profile = profileDetailsList.find(
           (p) => p.profileID === selectedProfile,
         );
@@ -188,6 +195,14 @@ const Reports = () => {
       },
     });
   };
+
+  useEffect(() => {
+    if (reportType !== "gn") return;
+
+    if (!reportsData.length && !showNodata) return;
+
+    fetchGeneralReport();
+  }, [currentPage, rowsPerPage]);
 
   const fetchSummaryReport = async (subPath, formdata) => {
     setShowNodata(true);
@@ -330,7 +345,10 @@ const Reports = () => {
         })}
 
         <div className='col-12 col-md-2 mt-3'>
-          <button className='btn btn-primary' onClick={handleApicall}>
+          <button
+            className='btn btn-primary text-nowrap'
+            onClick={handleApicall}
+          >
             Generate Report
           </button>
         </div>
@@ -356,6 +374,12 @@ const Reports = () => {
               data={reportsData}
               fileName={fileName}
               dateRange={dateRange}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              rowsPerPage={rowsPerPage}
+              setRowsPerPage={setRowsPerPage}
+              paginationData={paginationData}
+              selectedStations={selectedStations}
             />
           )
         ) : (

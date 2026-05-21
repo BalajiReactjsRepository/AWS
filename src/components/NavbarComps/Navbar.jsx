@@ -82,6 +82,8 @@ const NavbarModule = (props) => {
           background: "#fff",
           zIndex: 1000,
         }}
+
+        className="header-section"
       >
         {/* Left Section */}
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>

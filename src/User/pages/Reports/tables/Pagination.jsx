@@ -8,6 +8,7 @@ const Pagination = (props) => {
     rowsPerPage,
     setRowsPerPage,
   } = props;
+
   const getPaginationRange = (currentPage, totalPages, visiblePages = 10) => {
     let startPage = Math.max(currentPage - Math.floor(visiblePages / 2), 1);
     let endPage = startPage + visiblePages - 1;
@@ -24,13 +25,14 @@ const Pagination = (props) => {
 
     return pages;
   };
+
   return (
     <div className='d-flex justify-content-between mb-5'>
       <div className='flex align-self-end justify-end mt-2 space-x-2'>
         Rows Per Page{" "}
         <select
           value={rowsPerPage}
-          onChange={(e) => setRowsPerPage(e.target.value)}
+          onChange={(e) => setRowsPerPage(Number(e.target.value))}
         >
           {["5", "10", "20", "50", "100"].map((num) => (
             <option key={num} value={num}>
@@ -47,7 +49,6 @@ const Pagination = (props) => {
         >
           Prev
         </button>
-
         {getPaginationRange(currentPage, totalPages).map((page) => (
           <button
             key={page}
@@ -59,7 +60,6 @@ const Pagination = (props) => {
             {page}
           </button>
         ))}
-
         <button
           onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
           disabled={currentPage === totalPages}

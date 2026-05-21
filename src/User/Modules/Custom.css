@@ -71,3 +71,28 @@ td {
     width: 22rem;
   }
 }
+
+/* suggestion-box */
+
+.suggestionBox {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  z-index: 9999;
+  max-height: 250px;
+  overflow-y: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.suggestionItem {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestionItem:hover {
+  background-color: #f5f5f5;
+}

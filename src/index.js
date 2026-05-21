@@ -18,5 +18,5 @@ root.render(
         <AppRoutes />
       </BrowserRouter>
     </ErrorBoundary>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

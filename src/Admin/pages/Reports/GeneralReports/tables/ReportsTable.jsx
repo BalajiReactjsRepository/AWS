@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import JSZip from "jszip";
-import { saveAs } from "file-saver";
+// import JSZip from "jszip";
+// import { saveAs } from "file-saver";
+import { apiCaller } from "../../../../../api/apihelper";
+import api from "../../../../../api/axiosConfig";
 
 import Pagination from "./Pagination";
 //import DownloadReportBtn from "../DownloadReportBtn";
@@ -9,18 +11,34 @@ import "../reports.css";
 import DownloadBtn from "../../../../../components/DownloadBtn";
 import { getDatebyInputChange } from "../config";
 
-const WeatherTable = ({ data, fileName, selectDateType, dateRange }) => {
+const WeatherTable = (props) => {
+  const {
+    data,
+    fileName,
+    selectDateType,
+    dateRange,
+    currentPage,
+    setCurrentPage,
+    rowsPerPage,
+    setRowsPerPage,
+    paginationData,
+    selectedStations,
+  } = props;
+  const [loading, setLoading] = useState(false);
+
   const [rowsChecked, setRowsChecked] = useState(false);
   const [rows, setRows] = useState(
-    data.map((r) => ({ ...r, isChecked: false }))
+    data.map((r) => ({ ...r, isChecked: false })),
   );
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const { totalPages } = paginationData;
 
   if (!data || data.length === 0) return <p>No data available</p>;
 
   const sensorNames = Array.from(
-    new Set(data.flatMap((entry) => Object.keys(entry.rowData || {})))
+    new Set(data.flatMap((entry) => Object.keys(entry.rowData || {}))),
   );
   const headers = ["Date Time", "StationId", ...sensorNames];
 
@@ -58,54 +76,94 @@ const WeatherTable = ({ data, fileName, selectDateType, dateRange }) => {
   //   document.body.removeChild(link);
   // };
 
-  // Convert "DD/MM/YYYY HH:mm" to a real Date object safely
+  // Convert "DD/MM/YYYY HH:mm" to a real Date object safelys
+
+  // const downloadZipByStation = () => {
+  //   const selectedRows = rows.filter((row) => row.isChecked);
+  //   const exportData = selectedRows.length > 0 ? selectedRows : rows;
+
+  //   if (exportData.length === 0) return;
+
+  //   const stationMap = {};
+
+  //   // ✅ Group by StationId instead of Date
+  //   exportData.forEach((item) => {
+  //     const stationId = item.stationId;
+
+  //     if (!stationMap[stationId]) stationMap[stationId] = [];
+  //     stationMap[stationId].push(item);
+  //   });
+
+  //   const zip = new JSZip();
+
+  //   Object.keys(stationMap).forEach((stationId) => {
+  //     const rowsForStation = stationMap[stationId];
+
+  //     const csvContent = [
+  //       headers.join(","),
+
+  //       ...rowsForStation.map((item) =>
+  //         headers
+  //           .map((key) => {
+  //             if (key === "Date Time") return item.dateTime;
+  //             if (key === "StationId") return item.stationId;
+  //             return item?.rowData?.[key] || "N/A";
+  //           })
+  //           .join(","),
+  //       ),
+  //     ].join("\n");
+
+  //     // ✅ File name format → StationId_formdate_todate.csv
+  //     const { formDate, toDate } = getDatebyInputChange(
+  //       selectDateType,
+  //       dateRange,
+  //     );
+  //     const fileName = `${stationId}_${formDate}_${toDate}.csv`;
+  //     zip.file(fileName, "\uFEFF" + csvContent);
+  //   });
+
+  //   zip.generateAsync({ type: "blob" }).then((zipFile) => {
+  //     saveAs(zipFile, (fileName || "Report") + ".zip");
+  //   });
+  // };
+
+  const selectedStationIds = selectedStations
+    .filter((each) => each.value !== "0")
+    .map((each) => each.value);
 
   const downloadZipByStation = () => {
-    const selectedRows = rows.filter((row) => row.isChecked);
-    const exportData = selectedRows.length > 0 ? selectedRows : rows;
+    const { formDate, toDate } = getDatebyInputChange(
+      selectDateType,
+      dateRange,
+    );
 
-    if (exportData.length === 0) return;
+    const formdata = new FormData();
 
-    const stationMap = {};
+    formdata.append("StationIds", selectedStationIds);
+    formdata.append("fromDate", formDate);
+    formdata.append("toDate", toDate);
 
-    // ✅ Group by StationId instead of Date
-    exportData.forEach((item) => {
-      const stationId = item.stationId;
+    apiCaller({
+      setLoading,
 
-      if (!stationMap[stationId]) stationMap[stationId] = [];
-      stationMap[stationId].push(item);
-    });
+      apiCall: () => api.post(`/Report/Report/ExportDataReport`, formdata),
 
-    const zip = new JSZip();
+      onSuccess: (result) => {
+        const zipUrl = result?.dataReportZipURL;
 
-    Object.keys(stationMap).forEach((stationId) => {
-      const rowsForStation = stationMap[stationId];
+        if (!zipUrl) return;
 
-      const csvContent = [
-        headers.join(","),
+        const link = document.createElement("a");
 
-        ...rowsForStation.map((item) =>
-          headers
-            .map((key) => {
-              if (key === "Date Time") return item.dateTime;
-              if (key === "StationId") return item.stationId;
-              return item?.rowData?.[key] || "N/A";
-            })
-            .join(",")
-        ),
-      ].join("\n");
+        link.href = zipUrl;
+        link.download = fileName;
 
-      // ✅ File name format → StationId_formdate_todate.csv
-      const { formDate, toDate } = getDatebyInputChange(
-        selectDateType,
-        dateRange
-      );
-      const fileName = `${stationId}_${formDate}_${toDate}.csv`;
-      zip.file(fileName, "\uFEFF" + csvContent);
-    });
+        document.body.appendChild(link);
 
-    zip.generateAsync({ type: "blob" }).then((zipFile) => {
-      saveAs(zipFile, (fileName || "Report") + ".zip");
+        link.click();
+
+        document.body.removeChild(link);
+      },
     });
   };
 
@@ -118,63 +176,67 @@ const WeatherTable = ({ data, fileName, selectDateType, dateRange }) => {
   const onChangeSingleRowSelected = (e, index) => {
     const { checked } = e.target;
     const updatedRows = rows.map((r, i) =>
-      i === index ? { ...r, isChecked: checked } : r
+      i === index ? { ...r, isChecked: checked } : r,
     );
     setRows(updatedRows);
     setRowsChecked(updatedRows.every((r) => r.isChecked));
   };
 
-  const totalPages = Math.ceil(data.length / rowsPerPage);
-  const currentData = data.slice(
-    (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
-  );
+  // const totalPages = Math.ceil(data.length / rowsPerPage);
+  // const currentData = data.slice(
+  //   (currentPage - 1) * rowsPerPage,
+  //   currentPage * rowsPerPage,
+  // );
 
   return (
-    <div className="d-flex flex-column">
-      <div className="d-flex mb-1 justify-content-between align-items-center">
+    <div className='d-flex flex-column'>
+      <div className='d-flex mb-1 justify-content-between align-items-center'>
         <span>Showing {data.length} Records</span>
 
-        <DownloadBtn handleDownload={downloadZipByStation} data={data} />
+        <DownloadBtn
+          handleDownload={downloadZipByStation}
+          data={data}
+          loading={loading}
+        />
       </div>
       <div
-        className="report-table-container"
+        className='report-table-container'
         style={{ maxHeight: selectDateType === "custom" ? "54vh" : "60vh" }}
       >
         <table
-          className="min-w-full border border-gray-300 report-table"
+          className='min-w-full border border-gray-300 report-table'
           style={{ minWidth: "100%" }}
         >
-          <thead className="reports-header">
-            <tr className="bg-gray-200">
-              <th className="border p-2">
+          <thead className='reports-header'>
+            <tr className='bg-gray-200'>
+              <th className='border p-2'>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={rowsChecked}
                   onChange={onChangeRowsSelected}
                 />
               </th>
               {headers.map((header) => (
-                <th key={header} className="border p-2 text-left">
+                <th key={header} className='border p-2 text-left'>
                   {header}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {currentData.map((entry, index) => (
-              <tr key={index} className="border">
-                <td className="border p-2">
+            {data.map((entry, index) => (
+              <tr key={index} className='border'>
+                <td className='border p-2'>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={entry.isChecked}
                     onChange={(e) => onChangeSingleRowSelected(e, index)}
                   />
                 </td>
-                <td className="border p-2">{entry.dateTime}</td>
-                <td className="border p-2">{entry.stationId}</td>
+                <td className='border p-2'>{entry.dateTime}</td>
+                <td className='border p-2'>{entry.stationId}</td>
                 {sensorNames.map((sensor) => (
-                  <td key={sensor} className="border p-2">
+                  <td key={sensor} className='border p-2'>
                     {entry.rowData?.[sensor] || "N/A"}
                   </td>
                 ))}

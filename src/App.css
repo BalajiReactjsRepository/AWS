@@ -138,7 +138,7 @@ select:-webkit-autofill {
 }
 
 ::-webkit-scrollbar:horizontal {
-  height: 0.3rem; /* Set the height for the horizontal scrollbar */
+  height: 0.5rem; /* Set the height for the horizontal scrollbar */
   border: 1px solid #5d5c5c;
   cursor: pointer;
 }

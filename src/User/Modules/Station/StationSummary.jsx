@@ -28,7 +28,7 @@ const StationSummary = () => {
     district = "",
     stationEnvDataList,
   } = location?.state?.station || {};
-  console.log(stationEnvDataList, "stationEnvDataList");
+ 
   const getStationSummary = async (stationId, profileId) => {
     const url = `/User/UserViewStationDashboard/GetStationsBoxList`;
 

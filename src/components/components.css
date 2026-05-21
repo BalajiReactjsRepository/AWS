@@ -583,3 +583,16 @@ nav.navbar-cont.navbar.navbar-expand-lg.navbar-light {
     overflow-y: scroll;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .header-section {
+    flex-flow: row-reverse;
+  }
+  .displaySidebar {
+    width: 80% !important;
+  }
+  .leaflet-top,
+  .leaflet-bottom {
+    z-index: 800 !important;
+  }
+}

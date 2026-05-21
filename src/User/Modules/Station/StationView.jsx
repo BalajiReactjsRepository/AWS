@@ -22,38 +22,39 @@ const StationView = ({ stationData, district }) => {
   }, [timeRef]);
 
   return (
-    <div className="row">
-      <div className="col-12  d-flex justify-content-between">
-        <div className="d-flex align-items-start">
+    <div className='row'>
+      <div className='col-12  d-flex justify-content-between'>
+        <div className='d-flex align-items-start'>
           <FaCircle
             style={{ marginTop: "0.4rem" }}
-            size="11"
+            size='11'
             fill={stationData.stationStatus === "Yes" ? "#00FF09" : "#FF0000"}
           />
-          <h6 className="section-heading ms-2">
+          <h6 className='section-heading ms-2'>
             {stationData.stationName}
             <br />
-            <span className="location-id">{stationData.stationId}</span>
+            <span className='location-id'>{stationData.stationId}</span>
           </h6>
         </div>
-        <span className="mb-2 side-heading" ref={timeRef}>
-          {new Date().toString()}
+
+        <span className='mb-2 side-heading'>
+          {new Date().toString().replace(/ GMT[^(]+/, " ")}
         </span>
       </div>
 
-      <div className="col-md-8 col-xl-9">
+      <div className='col-md-8 col-xl-9'>
         <MapEmbed locations={[stationData]} height={"13.6rem"} Zoom={5} />
       </div>
 
-      <div className="col-sm-12 col-md-4 col-xl-3 mt-3 mt-md-0 d-flex justify-content-md-end">
-        <div className="location-cont">
+      <div className='col-sm-12 col-md-4 col-xl-3 mt-3 mt-md-0 d-flex justify-content-md-end'>
+        <div className='location-cont'>
           <img
             src={stationData.stationImg || stationDummyImage}
-            alt="station img"
-            className="locationImg"
+            alt='station img'
+            className='locationImg'
             style={{ width: "100%", borderRadius: "8px" }}
           />
-          <div className="location-details">
+          <div className='location-details'>
             <span
               style={{
                 fontSize: ".8rem",
@@ -64,7 +65,7 @@ const StationView = ({ stationData, district }) => {
               Station Location
             </span>
             <p
-              className="text-white"
+              className='text-white'
               style={{
                 fontSize: "0.9rem",
                 marginBottom: "0",

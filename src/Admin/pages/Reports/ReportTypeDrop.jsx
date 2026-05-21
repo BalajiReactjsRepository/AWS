@@ -18,17 +18,17 @@ const ReportTypeDrop = ({ reportType, setReportType, goptions }) => {
   const selectedOption = options.find((option) => option.value === reportType);
 
   return (
-    <div className="me-3">
-      <label htmlFor="reportType" className="label-primary">
+    <div className='me-3'>
+      <label htmlFor='reportType' className='label-primary'>
         Report Type *
       </label>
       <Select
-        inputId="reportType"
+        inputId='reportType'
         options={options}
         value={selectedOption || options[0]} // fallback to first option
         onChange={onChangeReportType}
         isSearchable
-        placeholder="Select report type..."
+        placeholder='Select report type...'
         styles={{
           control: (base) => ({
             ...base,
