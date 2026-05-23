@@ -7,11 +7,13 @@ import { handleDownloadCsv } from "../../../utils/downloadData.js";
 import ParameterCard from "./ParameterCard.jsx";
 import api from "../../../api/axiosConfig.js";
 import { apiCaller } from "../../../api/apihelper.js";
+import { useStore } from "../../../Context/masterapis/MasterApisContext.jsx";
 
 const DataCompleteReport = () => {
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
   const [loading, setLoading] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [selectedProfile, setSelectedProfile] = useState("");
 
   const [data, setData] = useState([]);
   const [showTable, setShowTable] = useState(false);
@@ -23,7 +25,19 @@ const DataCompleteReport = () => {
     totalMissingCount: "",
   });
 
+  const { store } = useStore();
+
+  const options = store.profiles.map((p) => ({
+    value: p._id,
+    label: p.profileName,
+  }));
+
+  const profileNameSelected = options.find(
+    (opt) => opt.value === selectedProfile,
+  )?.label;
+
   const callReportApi = async (body) => {
+    setSelectedProfile(body.selectedProfile);
     const formData = new FormData();
 
     formData.append("profileId", body.selectedProfile);
@@ -55,7 +69,7 @@ const DataCompleteReport = () => {
 
   const paginatedData = data.slice(
     (pagination.current - 1) * pagination.pageSize,
-    pagination.current * pagination.pageSize
+    pagination.current * pagination.pageSize,
   );
 
   let columns = [];
@@ -73,7 +87,7 @@ const DataCompleteReport = () => {
       filterFields,
       () => {},
       {},
-      isActionNeed
+      isActionNeed,
     );
   }
 
@@ -85,8 +99,17 @@ const DataCompleteReport = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
+  const fileKey = "Data-Health-Report";
+
   const handleDownload = () => {
-    handleDownloadCsv(selectedRowKeys, data, columns);
+    handleDownloadCsv(
+      selectedRowKeys,
+      data,
+      columns,
+      profileNameSelected,
+      fileKey,
+    );
   };
 
   return (
@@ -100,14 +123,14 @@ const DataCompleteReport = () => {
 
       {showTable && (
         <div>
-          <div className="row">
+          <div className='row'>
             {Object.entries(parameters).map(([key, value], index) => (
-              <div key={key} className="col-12 col-md-3 mb-2">
+              <div key={key} className='col-12 col-md-3 mb-2'>
                 <ParameterCard name={key} value={value} />
               </div>
             ))}
           </div>
-          <div className="d-flex justify-content-end my-2">
+          <div className='d-flex justify-content-end my-2'>
             <DownloadBtn handleDownload={handleDownload} data={paginatedData} />
           </div>
 

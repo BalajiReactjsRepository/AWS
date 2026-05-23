@@ -182,7 +182,7 @@ const DataQuality = () => {
   const handleSubmit = async (values, { resetForm }) => {
     const formData = new FormData();
     let checkTypeValue = values.CheckType === "Data Completeness" ? "dc" : "dq";
-    console.log(checkTypeValue, values);
+    
     setCheckType(checkTypeValue);
     formData.append("CheckType", checkTypeValue);
     formData.append("IssueType", values.IssueType?.join(","));

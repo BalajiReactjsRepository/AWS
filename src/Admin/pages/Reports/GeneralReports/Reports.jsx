@@ -84,6 +84,8 @@ const Reports = () => {
       formdata.append("District", disctricts);
       formdata.append("pageNumber", currentPage);
       formdata.append("pageSize", rowsPerPage);
+      formdata.append("isExport", false);
+
       formdata.append("Block", Block);
 
       const res = await api.post(`/Report/Report/DataReport`, formdata);

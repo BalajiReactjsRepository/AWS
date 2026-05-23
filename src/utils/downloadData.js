@@ -7,17 +7,21 @@ export const handleDownloadCsv = (
   selectedRowKeys,
   filteredData,
   columns,
-  spclCol
+  profileNameSelected,
+  fileKey,
+  spclCol,
 ) => {
-  const fileName =
-    window.location.pathname.split("/").filter(Boolean).at(-1) || "export";
+  // const fileName =
+  //   window.location.pathname.split("/").filter(Boolean).at(-1) || "export";
+
+  const fileName = `${profileNameSelected}_${fileKey}` || "export";
 
   const exportData = selectedRowKeys.length
     ? filteredData.filter((item) => selectedRowKeys.includes(item._id))
     : filteredData;
 
   const visibleColumns = columns.filter(
-    (col) => col.title !== "Action" && col.dataIndex
+    (col) => col.title !== "Action" && col.dataIndex,
   );
 
   const excelData = exportData.map((item) => {

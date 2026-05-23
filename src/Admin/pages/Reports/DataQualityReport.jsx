@@ -6,6 +6,7 @@ import { handleDownloadCsv } from "../../../utils/downloadData";
 import { buildColumns } from "../../../utils/tableAction";
 import api from "../../../api/axiosConfig.js";
 import { apiCaller } from "../../../api/apihelper.js";
+import { useStore } from "../../../Context/masterapis/MasterApisContext.jsx";
 
 const DataQualityReport = () => {
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
@@ -13,8 +14,21 @@ const DataQualityReport = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [data, setData] = useState([]);
   const [showTable, setShowTable] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState("");
+
+  const { store } = useStore();
+
+  const options = store.profiles.map((p) => ({
+    value: p._id,
+    label: p.profileName,
+  }));
+
+  const profileNameSelected = options.find(
+    (opt) => opt.value === selectedProfile,
+  )?.label;
 
   const callReportApi = async (body) => {
+    setSelectedProfile(body.selectedProfile);
     const formData = new FormData();
     formData.append("profileId", body.selectedProfile);
     formData.append("stationId", body.selectedStationIds.join(","));
@@ -51,20 +65,28 @@ const DataQualityReport = () => {
     return buildColumns("quality", data, filterFields, () => {}, {}, false);
   }, [data]);
 
+  const fileKey = "Data-Quality-Report";
+
   const handleDownload = () => {
-    handleDownloadCsv(selectedRowKeys, data, columns);
+    handleDownloadCsv(
+      selectedRowKeys,
+      data,
+      columns,
+      profileNameSelected,
+      fileKey,
+    );
   };
 
   return (
     <div>
       <ReportFiler
-        dataReportType="qualityReport"
+        dataReportType='qualityReport'
         callReportApi={callReportApi}
       />
 
       {showTable && (
         <div>
-          <div className="d-flex justify-content-end my-2">
+          <div className='d-flex justify-content-end my-2'>
             <DownloadBtn handleDownload={handleDownload} data={paginatedData} />
           </div>
 

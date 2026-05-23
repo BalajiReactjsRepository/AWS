@@ -6,6 +6,7 @@ import { handleDownloadCsv } from "../../../utils/downloadData.js";
 import DownloadBtn from "../../../components/DownloadBtn.jsx";
 import api from "../../../api/axiosConfig.js";
 import { apiCaller } from "../../../api/apihelper.js";
+import { useStore } from "../../../Context/masterapis/MasterApisContext.jsx";
 
 const MissingDataReport = () => {
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
@@ -14,8 +15,21 @@ const MissingDataReport = () => {
 
   const [data, setData] = useState([]);
   const [showTable, setShowTable] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState("");
+
+  const { store } = useStore();
+
+  const options = store.profiles.map((p) => ({
+    value: p._id,
+    label: p.profileName,
+  }));
+
+  const profileNameSelected = options.find(
+    (opt) => opt.value === selectedProfile,
+  )?.label;
 
   const callReportApi = async (body) => {
+    setSelectedProfile(body.selectedProfile);
     const formData = new FormData();
 
     // formData.append("profileId", body.selectedProfile);
@@ -34,7 +48,7 @@ const MissingDataReport = () => {
 
   const paginatedData = data.slice(
     (pagination.current - 1) * pagination.pageSize,
-    pagination.current * pagination.pageSize
+    pagination.current * pagination.pageSize,
   );
 
   let columns = [];
@@ -52,7 +66,7 @@ const MissingDataReport = () => {
       filterFields,
       () => {},
       {},
-      isActionNeed
+      isActionNeed,
     );
   }
 
@@ -64,8 +78,17 @@ const MissingDataReport = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
+  const fileKey = "Missing-Data-Report";
+
   const handleDownload = () => {
-    handleDownloadCsv(selectedRowKeys, data, columns);
+    handleDownloadCsv(
+      selectedRowKeys,
+      data,
+      columns,
+      profileNameSelected,
+      fileKey,
+    );
   };
 
   return (
@@ -78,7 +101,7 @@ const MissingDataReport = () => {
       </div>
       {showTable && (
         <div>
-          <div className="d-flex justify-content-end my-2">
+          <div className='d-flex justify-content-end my-2'>
             <DownloadBtn handleDownload={handleDownload} data={paginatedData} />
           </div>
 

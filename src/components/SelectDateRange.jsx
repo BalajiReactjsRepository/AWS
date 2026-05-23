@@ -15,12 +15,18 @@ const SelectDateRange = (props) => {
     view,
   } = props;
 
+  const location = window.location.pathname;
+
   const options = [
     "Today",
     "Yesterday",
     "Custom",
-    ...(view === "tabularView" ? ["Last 7 days", "Last 30 days"] : []),
+    ...(view === "tabularView" || location === "/reports"
+      ? ["Last 7 days", "Last 30 days"]
+      : []),
   ];
+
+  console.log(options);
 
   const [dateRange, setDateRange] = useState([
     dayjs(), // Current date as a dayjs object

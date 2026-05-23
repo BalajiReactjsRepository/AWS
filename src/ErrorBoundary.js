@@ -24,7 +24,7 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      console.log(this.state);
+     
       // Pass meaningful error info to the fallback component
       return (
         <ErrorFallback

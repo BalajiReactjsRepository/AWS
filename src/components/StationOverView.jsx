@@ -59,7 +59,6 @@ const StationOverView = (props) => {
 
   // console.log(stations, "fardin");
 
-  console.log(stations, "llll");
 
   return (
     <>

@@ -17,7 +17,7 @@ export const buildColumns = (
   customRenderMap = {},
   isActionNeed = true,
   editShow = true,
-  viewShow = true
+  viewShow = true,
 ) => {
   // console.log(
   //   menu,
@@ -34,7 +34,6 @@ export const buildColumns = (
     excludeFields = ["_id"],
   } = filterFields;
   const sampleRecord = data[0] || {};
-  console.log(sampleRecord)
 
   const columns = Object.keys(sampleRecord)
     .filter((key) => !excludeFields.includes(key))

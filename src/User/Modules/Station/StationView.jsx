@@ -37,8 +37,8 @@ const StationView = ({ stationData, district }) => {
           </h6>
         </div>
 
-        <span className='mb-2 side-heading'>
-          {new Date().toString().replace(/ GMT[^(]+/, " ")}
+        <span className='mb-2 side-heading' ref={timeRef}>
+          {new Date().toString()}
         </span>
       </div>
 

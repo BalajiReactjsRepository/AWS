@@ -173,6 +173,7 @@ const Reports = () => {
     formdata.append("District", disctricts);
     formdata.append("pageNumber", currentPage);
     formdata.append("pageSize", rowsPerPage);
+    formdata.append("isExport", false);
     formdata.append("Block", Block);
 
     apiCaller({

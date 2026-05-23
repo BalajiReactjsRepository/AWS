@@ -86,7 +86,7 @@ const AddHydraulicParameter = () => {
         ? "CreateHydraulicDetails"
         : "UpdateHydraulicDetails"
     }`;
-    console.log(url, "trigger");
+   
 
     apiCaller({
       showSuccess: true,
@@ -100,7 +100,7 @@ const AddHydraulicParameter = () => {
 
   const handleExternalSubmit = async (validateForm, submitForm, setTouched) => {
     const errors = await validateForm();
-    console.log(errors);
+  
     if (Object.keys(errors).length > 0) {
       setTouched(
         Object.keys(errors).reduce((acc, key) => ({ ...acc, [key]: true }), {}),
@@ -111,7 +111,7 @@ const AddHydraulicParameter = () => {
     if (action === "add-hydraulic-details") {
       submitForm();
     } else {
-      console.log("trigger");
+     
       callActionWarningPopup(action, async (reason) => {
         reasonRef.current = reason;
         await submitForm();

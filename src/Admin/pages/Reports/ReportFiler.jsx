@@ -15,7 +15,7 @@ dayjs.extend(customParseFormat);
 const ReportFiler = ({ dataReportType, callReportApi }) => {
   const [selectDateType, setSelectedDateType] = useState("today");
 
-  const [dateRange, setDateRange] = useState([]); //
+  const [dateRange, setDateRange] = useState([]);
 
   const [reportType, setReportType] = useState("");
   const [selectedProfile, setSelectedProfile] = useState(0);

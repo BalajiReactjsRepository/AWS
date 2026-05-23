@@ -142,11 +142,12 @@ const WeatherTable = (props) => {
     formdata.append("StationIds", selectedStationIds);
     formdata.append("fromDate", formDate);
     formdata.append("toDate", toDate);
+    formdata.append("isExport", true);
 
     apiCaller({
       setLoading,
 
-      apiCall: () => api.post(`/Report/Report/ExportDataReport`, formdata),
+      apiCall: () => api.post(`/Report/Report/DataReport`, formdata),
 
       onSuccess: (result) => {
         const zipUrl = result?.dataReportZipURL;

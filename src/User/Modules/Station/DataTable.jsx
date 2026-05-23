@@ -18,8 +18,6 @@ const DataTable = (props) => {
     offDateLabel,
   } = props;
 
-  console.log(data, "kkkk");
-
   const downloadCSV = (array, fileName) => {
     if (!array || array.length === 0) return;
     const csvContent = [
